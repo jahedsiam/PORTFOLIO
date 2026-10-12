@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Sahin Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0a18;--panel:#13122a;--line:rgba(255,255,255,.09);--text:#f4f4ff;--mute:#9a9ab8;--ind:#6366F1;--ind2:#818CF8;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Geist,system-ui,sans-serif;min-height:100vh}
+button,input,select{font:inherit;color:inherit}
+.hidden{display:none!important}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}
+h1{margin:0 0 6px;font-size:22px}h2{margin:0 0 4px;font-size:18px}
+p.sub{color:var(--mute);margin:0 0 18px;font-size:14px}
+input[type=text],input[type=password],input[type=url],input[type=email],select{width:100%;background:#0d0c20;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none}
+input:focus,select:focus{border-color:var(--ind2)}
+label{display:block;font-size:12px;color:var(--mute);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.06em}
+.btn{background:var(--ind);border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer}
+.btn:hover{background:#4F46E5}.btn:disabled{opacity:.5;cursor:default}
+.btn.ghost{background:transparent;border:1px solid var(--line)}.btn.ghost:hover{background:rgba(255,255,255,.05)}
+.btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
+.btn.danger{color:var(--red)}
+.err{color:var(--red);font-size:13px;min-height:18px;margin-top:10px}
+header{position:sticky;top:0;z-index:5;background:rgba(11,10,24,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1000px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bar .grow{flex:1}
+.tabs{display:flex;gap:4px;max-width:1000px;margin:0 auto;padding:0 16px 10px}
+.tab{background:none;border:0;padding:8px 14px;border-radius:8px;color:var(--mute);cursor:pointer}
+.tab.on{background:rgba(99,102,241,.18);color:#fff}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}
+.drop{border:2px dashed rgba(129,140,248,.45);border-radius:12px;padding:26px;text-align:center;color:var(--mute);cursor:pointer;transition:.2s}
+.drop.over,.drop:hover{background:rgba(99,102,241,.1);color:#fff}
+.vitem{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.vitem:first-child{border-top:0}
+.thumb{width:120px;aspect-ratio:16/9;border-radius:8px;background:#000 center/cover;overflow:hidden;position:relative}
+.thumb.p{width:68px;aspect-ratio:9/16;justify-self:center}
+.thumb video,.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb .lnk{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;color:var(--mute)}
+.fields{display:grid;grid-template-columns:1fr 1fr 130px;gap:8px}
+.fields input,.fields select{padding:8px 10px;font-size:14px}
+.acts{display:flex;flex-direction:column;gap:6px}
+.prog{height:6px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-top:6px}
+.prog i{display:block;height:100%;background:var(--ind2);width:0}
+.up{font-size:13px;color:var(--mute);padding:6px 0}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1d1c3a;border:1px solid var(--line);padding:10px 16px;border-radius:10px;z-index:20;box-shadow:0 8px 30px #0008}
+.dirty{color:#fbbf24;font-size:13px}
+@media(max-width:700px){.vitem{grid-template-columns:90px 1fr}.vitem .acts{grid-column:1/-1;flex-direction:row}.fields{grid-template-columns:1fr}.thumb{width:90px}}
+</style>
+</head>
+<body>
+
+<div class="login" id="loginView">
+  <form class="box" id="loginForm">
+    <h1>Admin login</h1>
+    <p class="sub">Jahedul Islam Sahin — portfolio</p>
+    <label for="pw">Password</label>
+    <input type="password" id="pw" autocomplete="current-password" required autofocus>
+    <div class="err" id="loginErr"></div>
+    <button class="btn" style="width:100%;margin-top:6px" id="loginBtn">Log in</button>
+  </form>
+</div>
+
+<div id="appView" class="hidden">
+  <header>
+    <div class="bar">
+      <strong>Portfolio Admin</strong><span class="dirty hidden" id="dirty">● unsaved changes</span>
+      <span class="grow"></span>
+      <a class="btn ghost sm" href="/" target="_blank" style="text-decoration:none">View site ↗</a>
+      <button class="btn sm" id="saveBtn">Save &amp; publish</button>
+      <button class="btn ghost sm" id="logoutBtn">Log out</button>
+    </div>
+    <div class="tabs">
+      <button class="tab on" data-tab="videos">Videos</button>
+      <button class="tab" data-tab="showreel">Showreel</button>
+      <button class="tab" data-tab="settings">Site settings</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="tab-videos">
+      <div class="card">
+        <h2>Upload videos</h2>
+        <p class="sub">Choose the type and category, then drop your .mp4 files. They upload straight to storage and appear on the site after saving.</p>
+        <div class="row">
+          <div><label>Type</label>
+            <select id="upOrient"><option value="landscape">Landscape card (16:9)</option><option value="portrait">Reel (9:16 vertical)</option></select></div>
+          <div id="catWrap"><label>Category (filter tab)</label>
+            <input type="text" id="upCat" list="catList" placeholder="e.g. Product Videos" value="Product Videos"><datalist id="catList"></datalist></div>
+        </div>
+        <div class="drop" id="drop" style="margin-top:14px">Drop .mp4 files here or <u>click to browse</u><input type="file" id="fileIn" accept="video/mp4,video/webm,video/quicktime" multiple hidden></div>
+        <div id="uploads"></div>
+        <div class="row" style="margin-top:14px;align-items:end">
+          <div style="flex:3"><label>…or add a YouTube / Vimeo link</label><input type="url" id="linkIn" placeholder="https://www.youtube.com/watch?v=…"></div>
+          <div style="flex:0 0 auto;min-width:0"><button class="btn ghost" id="linkAdd">Add link</button></div>
+        </div>
+      </div>
+      <div class="card"><h2>Landscape videos</h2><p class="sub">Shown in the main grid with filter tabs.</p><div id="listL"></div></div>
+      <div class="card"><h2>Reels</h2><p class="sub">Vertical 9:16 row.</p><div id="listP"></div></div>
+    </section>
+
+    <section id="tab-showreel" class="hidden">
+      <div class="card">
+        <h2>Hero showreel</h2>
+        <p class="sub">The big video in the hero section.</p>
+        <div id="srCurrent" class="up"></div>
+        <div class="drop" id="srDrop">Drop your showreel .mp4 or <u>click to browse</u><input type="file" id="srIn" accept="video/mp4,video/webm,video/quicktime" hidden></div>
+        <div id="srUp"></div>
+        <label>…or a YouTube / Vimeo link</label>
+        <div class="row"><input type="url" id="srLink" placeholder="https://…" style="flex:3"><button class="btn ghost" id="srSet" style="flex:0 0 auto;min-width:0">Use link</button></div>
+        <div style="margin-top:14px"><button class="btn ghost sm danger" id="srClear">Remove showreel (use default)</button></div>
+      </div>
+    </section>
+
+    <section id="tab-settings" class="hidden">
+      <div class="card">
+        <h2>Contact &amp; social</h2>
+        <label>Email</label><input type="email" id="sEmail" placeholder="you@example.com">
+        <label>YouTube link</label><input type="url" id="sYoutube">
+        <label>Instagram link</label><input type="url" id="sInstagram">
+        <label>LinkedIn link</label><input type="url" id="sLinkedin">
+        <label>X (Twitter) link</label><input type="url" id="sX">
+      </div>
+      <div class="card">
+        <h2>About photo</h2>
+        <p class="sub">Your portrait in the About section.</p>
+        <div id="photoPrev" style="margin-bottom:10px"></div>
+        <div class="drop" id="phDrop">Drop a photo (jpg / png / webp) or <u>click to browse</u><input type="file" id="phIn" accept="image/jpeg,image/png,image/webp" hidden></div>
+        <div id="phUp"></div>
+        <div style="margin-top:12px"><button class="btn ghost sm danger" id="phClear">Remove photo</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script type="module">
+import { upload } from "https://esm.sh/@vercel/blob@2.8.1/client";
+
+const $ = (s) => document.querySelector(s);
+let data = { showreel: null, videos: [], settings: { socials: {} } };
+let dirty = false;
+
+function toast(t, ms) { const el = $("#toast"); el.textContent = t; el.classList.remove("hidden"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.add("hidden"), ms || 2600); }
+function setDirty(v) { dirty = v; $("#dirty").classList.toggle("hidden", !v); }
+window.addEventListener("beforeunload", (e) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+const uid = () => Math.random().toString(36).slice(2, 10);
+const isVideoFile = (u) => /\.(mp4|webm|mov)(\?|#|$)/i.test(u || "");
+const titleFrom = (n) => n.replace(/\.[^.]+$/, "").replace(/^\d+[\s._-]*/, "").replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "Untitled";
+
+async function api(path, opt) {
+  const r = await fetch(path, Object.assign({ credentials: "same-origin" }, opt));
+  let j = null; try { j = await r.json(); } catch (e) {}
+  if (r.status === 401 && path !== "/api/login") { showLogin(); throw new Error("Session expired — log in again"); }
+  if (!r.ok) throw new Error((j && j.error) || "Request failed (" + r.status + ")");
+  return j;
+}
+
+/* ---------- login ---------- */
+function showLogin() { $("#appView").classList.add("hidden"); $("#loginView").classList.remove("hidden"); }
+async function showApp() {
+  $("#loginView").classList.add("hidden"); $("#appView").classList.remove("hidden");
+  try {
+    const c = await api("/api/content");
+    data = { showreel: c.showreel || null, videos: c.videos || [], settings: Object.assign({ socials: {} }, c.settings || {}) };
+    data.settings.socials = data.settings.socials || {};
+    data.videos.forEach((v) => { if (!v.id) v.id = uid(); });
+  } catch (e) { toast(e.message); }
+  renderAll(); setDirty(false);
+}
+$("#loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault(); $("#loginErr").textContent = ""; $("#loginBtn").disabled = true;
+  try { await api("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: $("#pw").value }) }); $("#pw").value = ""; await showApp(); }
+  catch (err) { $("#loginErr").textContent = err.message; }
+  $("#loginBtn").disabled = false;
+});
+$("#logoutBtn").addEventListener("click", async () => { await fetch("/api/login", { method: "DELETE" }); location.reload(); });
+fetch("/api/login", { credentials: "same-origin" }).then((r) => r.json()).then((j) => { if (j.authed) showApp(); }).catch(() => {});
+
+/* ---------- tabs ---------- */
+document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
+  document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("on", x === t));
+  ["videos", "showreel", "settings"].forEach((n) => $("#tab-" + n).classList.toggle("hidden", n !== t.dataset.tab));
+}));
+
+/* ---------- save ---------- */
+async function save(quiet) {
+  collectSettings();
+  $("#saveBtn").disabled = true;
+  try { await api("/api/content", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); setDirty(false); toast(quiet ? "Saved ✓" : "Saved & published ✓ (live in a few seconds)"); }
+  catch (e) { toast("Save failed: " + e.message, 5000); }
+  $("#saveBtn").disabled = false;
+}
+$("#saveBtn").addEventListener("click", () => save());
+
+/* ---------- upload helper ---------- */
+async function uploadFile(file, folder, bar) {
+  const safe = file.name.replace(/[^\w.\-]+/g, "_");
+  const blob = await upload(folder + "/" + safe, file, {
+    access: "public", handleUploadUrl: "/api/upload", multipart: file.size > 20 * 1024 * 1024,
+    onUploadProgress: (p) => { bar.style.width = p.percentage + "%"; },
+  });
+  return blob.url;
+}
+function progressRow(host, name) {
+  const d = document.createElement("div"); d.className = "up";
+  d.innerHTML = '<span></span><div class="prog"><i></i></div>'; d.firstChild.textContent = name;
+  host.appendChild(d); return { el: d, bar: d.querySelector("i"), label: d.firstChild };
+}
+
+/* ---------- videos ---------- */
+const orientSel = $("#upOrient");
+orientSel.addEventListener("change", () => { $("#catWrap").classList.toggle("hidden", orientSel.value === "portrait"); });
+const drop = $("#drop"), fileIn = $("#fileIn");
+drop.addEventListener("click", () => fileIn.click());
+["dragover", "dragenter"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", (e) => handleFiles(e.dataTransfer.files));
+fileIn.addEventListener("change", () => { handleFiles(fileIn.files); fileIn.value = ""; });
+
+async function handleFiles(files) {
+  const orient = orientSel.value, cat = orient === "portrait" ? "Reels" : ($("#upCat").value.trim() || "Videos");
+  for (const f of Array.from(files)) {
+    if (!/^video\//.test(f.type) && !isVideoFile(f.name)) { toast(f.name + " is not a video"); continue; }
+    const row = progressRow($("#uploads"), f.name + " — uploading…");
+    try {
+      const url = await uploadFile(f, "videos", row.bar);
+      data.videos.push({ id: uid(), title: titleFrom(f.name), category: cat, url, orient });
+      row.label.textContent = f.name + " — done ✓"; row.bar.style.width = "100%";
+      renderAll(); await save(true);
+      setTimeout(() => row.el.remove(), 3000);
+    } catch (e) { row.label.textContent = f.name + " — failed: " + e.message; row.label.style.color = "var(--red)"; }
+  }
+}
+$("#linkAdd").addEventListener("click", () => {
+  const u = $("#linkIn").value.trim(); if (!u) return;
+  const orient = orientSel.value;
+  data.videos.push({ id: uid(), title: "New video", category: orient === "portrait" ? "Reels" : ($("#upCat").value.trim() || "Videos"), url: u, orient });
+  $("#linkIn").value = ""; renderAll(); setDirty(true);
+});
+
+function thumbEl(v) {
+  const t = document.createElement("div"); t.className = "thumb" + (v.orient === "portrait" ? " p" : "");
+  if (isVideoFile(v.url)) t.innerHTML = '<video muted playsinline preload="metadata" src="' + v.url + '#t=0.6"></video>';
+  else t.innerHTML = '<div class="lnk">link</div>';
+  return t;
+}
+function itemEl(v) {
+  const el = document.createElement("div"); el.className = "vitem";
+  el.appendChild(thumbEl(v));
+  const f = document.createElement("div"); f.className = "fields";
+  const ti = document.createElement("input"); ti.type = "text"; ti.value = v.title; ti.placeholder = "Title";
+  const ca = document.createElement("input"); ca.type = "text"; ca.value = v.category; ca.placeholder = "Category"; ca.setAttribute("list", "catList");
+  if (v.orient === "portrait") ca.disabled = true;
+  const or = document.createElement("select"); or.innerHTML = '<option value="landscape">Landscape</option><option value="portrait">Reel 9:16</option>'; or.value = v.orient;
+  ti.addEventListener("input", () => { v.title = ti.value; setDirty(true); });
+  ca.addEventListener("input", () => { v.category = ca.value; setDirty(true); });
+  or.addEventListener("change", () => { v.orient = or.value; v.category = or.value === "portrait" ? "Reels" : (v.category === "Reels" ? "Videos" : v.category); setDirty(true); renderAll(); });
+  f.append(ti, ca, or); el.appendChild(f);
+  const a = document.createElement("div"); a.className = "acts";
+  const mk = (txt, fn, cls) => { const b = document.createElement("button"); b.className = "btn ghost sm " + (cls || ""); b.textContent = txt; b.addEventListener("click", fn); return b; };
+  const row = document.createElement("div"); row.style.cssText = "display:flex;gap:6px";
+  row.append(mk("↑", () => move(v, -1)), mk("↓", () => move(v, 1)));
+  a.append(row, mk("Delete", () => del(v), "danger")); el.appendChild(a);
+  return el;
+}
+function move(v, d) {
+  const same = data.videos.filter((x) => (x.orient === "portrait") === (v.orient === "portrait"));
+  const i = same.indexOf(v), j = i + d; if (j < 0 || j >= same.length) return;
+  const a = data.videos.indexOf(v), b = data.videos.indexOf(same[j]);
+  data.videos[a] = same[j]; data.videos[b] = v; setDirty(true); renderAll();
+}
+async function del(v) {
+  if (!confirm('Delete "' + v.title + '"?')) return;
+  data.videos = data.videos.filter((x) => x !== v);
+  if (/blob\.vercel-storage\.com/.test(v.url)) { try { await api("/api/remove-file", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: v.url }) }); } catch (e) {} }
+  renderAll(); await save(true);
+}
+function renderAll() {
+  const L = $("#listL"), P = $("#listP"); L.innerHTML = ""; P.innerHTML = "";
+  const l = data.videos.filter((v) => v.orient !== "portrait"), p = data.videos.filter((v) => v.orient === "portrait");
+  l.forEach((v) => L.appendChild(itemEl(v))); p.forEach((v) => P.appendChild(itemEl(v)));
+  if (!l.length) L.innerHTML = '<div class="up">No landscape videos yet.</div>';
+  if (!p.length) P.innerHTML = '<div class="up">No reels yet.</div>';
+  const cats = []; l.forEach((v) => { if (cats.indexOf(v.category) < 0) cats.push(v.category); });
+  $("#catList").innerHTML = cats.map((c) => '<option value="' + c.replace(/"/g, "&quot;") + '">').join("");
+  renderShowreel(); renderSettings();
+}
+
+/* ---------- showreel ---------- */
+function renderShowreel() {
+  const s = data.showreel;
+  $("#srCurrent").innerHTML = s ? "Current: <b></b>" : "No showreel set — the site shows its default.";
+  if (s) $("#srCurrent b").textContent = s.url.split("/").pop();
+}
+const srDrop = $("#srDrop"), srIn = $("#srIn");
+srDrop.addEventListener("click", () => srIn.click());
+["dragover", "dragenter"].forEach((ev) => srDrop.addEventListener(ev, (e) => { e.preventDefault(); srDrop.classList.add("over"); }));
+["dragleave", "drop"].forEach((ev) => srDrop.addEventListener(ev, (e) => { e.preventDefault(); srDrop.classList.remove("over"); }));
+srDrop.addEventListener("drop", (e) => srUpload(e.dataTransfer.files[0]));
+srIn.addEventListener("change", () => { srUpload(srIn.files[0]); srIn.value = ""; });
+async function srUpload(f) {
+  if (!f) return;
+  const row = progressRow($("#srUp"), f.name + " — uploading…");
+  try {
+    const url = await uploadFile(f, "showreel", row.bar);
+    data.showreel = { url, title: "Showreel" }; row.label.textContent = f.name + " — done ✓";
+    renderShowreel(); await save(true); setTimeout(() => row.el.remove(), 3000);
+  } catch (e) { row.label.textContent = "Failed: " + e.message; row.label.style.color = "var(--red)"; }
+}
+$("#srSet").addEventListener("click", () => { const u = $("#srLink").value.trim(); if (!u) return; data.showreel = { url: u, title: "Showreel" }; $("#srLink").value = ""; renderShowreel(); setDirty(true); });
+$("#srClear").addEventListener("click", () => { data.showreel = null; renderShowreel(); setDirty(true); });
+
+/* ---------- settings ---------- */
+function renderSettings() {
+  const s = data.settings, so = s.socials || {};
+  $("#sEmail").value = s.email || ""; $("#sYoutube").value = so.youtube || ""; $("#sInstagram").value = so.instagram || "";
+  $("#sLinkedin").value = so.linkedin || ""; $("#sX").value = so.x || "";
+  $("#photoPrev").innerHTML = s.aboutPhoto ? '<img src="' + s.aboutPhoto + '" style="max-width:160px;border-radius:12px">' : '<span class="up">No photo set.</span>';
+}
+function collectSettings() {
+  const s = data.settings; s.email = $("#sEmail").value.trim();
+  s.socials = { youtube: $("#sYoutube").value.trim(), instagram: $("#sInstagram").value.trim(), linkedin: $("#sLinkedin").value.trim(), x: $("#sX").value.trim() };
+}
+["#sEmail", "#sYoutube", "#sInstagram", "#sLinkedin", "#sX"].forEach((s) => $(s).addEventListener("input", () => setDirty(true)));
+const phDrop = $("#phDrop"), phIn = $("#phIn");
+phDrop.addEventListener("click", () => phIn.click());
+["dragover", "dragenter"].forEach((ev) => phDrop.addEventListener(ev, (e) => { e.preventDefault(); phDrop.classList.add("over"); }));
+["dragleave", "drop"].forEach((ev) => phDrop.addEventListener(ev, (e) => { e.preventDefault(); phDrop.classList.remove("over"); }));
+phDrop.addEventListener("drop", (e) => phUpload(e.dataTransfer.files[0]));
+phIn.addEventListener("change", () => { phUpload(phIn.files[0]); phIn.value = ""; });
+async function phUpload(f) {
+  if (!f) return;
+  const row = progressRow($("#phUp"), f.name + " — uploading…");
+  try { data.settings.aboutPhoto = await uploadFile(f, "images", row.bar); row.label.textContent = "Done ✓"; renderSettings(); await save(true); setTimeout(() => row.el.remove(), 3000); }
+  catch (e) { row.label.textContent = "Failed: " + e.message; row.label.style.color = "var(--red)"; }
+}
+$("#phClear").addEventListener("click", () => { data.settings.aboutPhoto = ""; renderSettings(); setDirty(true); });
+</script>
+</body>
+</html>

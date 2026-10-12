@@ -861,15 +861,34 @@
       poster.appendChild(vid);
     }
   }
+  function applySettings(st) {
+    if (!st) return;
+    if (st.email) { var em = document.getElementById("email"); if (em) em.textContent = st.email;
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) { a.href = "mailto:" + st.email; }); }
+    var so = st.socials || {};
+    ["youtube", "instagram", "linkedin", "x"].forEach(function (k) {
+      var a = document.querySelector('.social[data-icon="' + k + '"]'); if (a && so[k]) a.href = so[k];
+    });
+    if (st.aboutPhoto) { ABOUT_PHOTO = st.aboutPhoto; var f = document.getElementById("aboutPhoto");
+      if (f) f.innerHTML = '<img src="' + st.aboutPhoto + '" alt="Jahedul Islam Sahin" loading="lazy">'; }
+  }
   (function loadWork() {
     function done(list) { renderWork(list); applyShowreelPoster(); }
-    fetch("videos.json", { cache: "no-store" })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (m) {
+    function get(u) { return fetch(u, { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }
+    // 1) admin panel content (/api/content)  2) videos/ folder manifest (videos.json)  3) sample list above
+    get("/api/content").then(function (c) {
+      if (c && !c.empty && ((c.videos && c.videos.length) || c.showreel)) {
+        if (c.showreel && c.showreel.url) SHOWREEL = { title: "Showreel", category: "Showreel", url: c.showreel.url, orient: "landscape" };
+        applySettings(c.settings);
+        done(c.videos && c.videos.length ? c.videos : VIDEOS);
+        return;
+      }
+      if (c && c.settings) applySettings(c.settings);
+      return get("videos.json").then(function (m) {
         if (m && m.showreel) SHOWREEL = { title: "Showreel", category: "Showreel", url: m.showreel, orient: "landscape" };
         done(m && m.videos && m.videos.length ? m.videos : VIDEOS);
-      })
-      .catch(function () { done(VIDEOS); });
+      });
+    });
   })();
 
   /* ---- Lightbox ---- */
