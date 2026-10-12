@@ -135,8 +135,8 @@ main{max-width:1040px;margin:0 auto;padding:22px 16px 100px}
           <div style="flex:0 0 auto;min-width:0"><button class="btn ghost" id="linkAdd">Add link</button></div>
         </div>
       </div>
-      <div class="card"><h2>Landscape videos</h2><p class="cardsub">These are the cards in “Recent edits worth watching”. Edit the title/category, paste a link, or use <b>Replace</b> to upload your own file. Delete the samples once you add yours.</p><div id="listL"></div></div>
-      <div class="card"><h2>Reels</h2><p class="cardsub">Vertical 9:16 cards. Same controls — edit, replace, or delete.</p><div id="listP"></div></div>
+      <div class="card"><h2>Landscape videos</h2><p class="cardsub">These are the cards in “Recent edits worth watching”. Edit the title/category, paste a link, or use <b>Replace</b> to upload your own file. Delete the samples once you add yours.</p><div id="listL"></div><div class="addbar"><button class="btn ghost sm" id="addL">+ Add landscape video</button></div></div>
+      <div class="card"><h2>Reels</h2><p class="cardsub">Vertical 9:16 cards. Same controls — edit, replace, or delete.</p><div id="listP"></div><div class="addbar"><button class="btn ghost sm" id="addP">+ Add reel</button></div></div>
     </section>
 
     <section id="tab-showreel" class="hidden">
@@ -340,6 +340,13 @@ async function handleFiles(files){
 }
 $("#linkAdd").addEventListener("click",()=>{ const u=$("#linkIn").value.trim(); if(!u) return; const orient=$("#upOrient").value;
   data.videos.push({id:uid(),title:"New video",category:orient==="portrait"?"Reels":($("#upCat").value.trim()||"Videos"),url:u,orient}); $("#linkIn").value=""; renderVideos(); setDirty(true); });
+
+function addVideoRow(orient){ const v={id:uid(),title:"",category:orient==="portrait"?"Reels":"Videos",url:"",orient}; data.videos.push(v); setDirty(true); renderVideos();
+  // focus the new row's title so the user can type right away
+  const list=orient==="portrait"?$("#listP"):$("#listL"); const rows=list.querySelectorAll(".vitem"); const last=rows[rows.length-1];
+  if(last){ last.scrollIntoView({behavior:"smooth",block:"center"}); const ti=last.querySelector("input"); if(ti) ti.focus(); } }
+$("#addL").addEventListener("click",()=>addVideoRow("landscape"));
+$("#addP").addEventListener("click",()=>addVideoRow("portrait"));
 
 function thumbEl(v){ const t=document.createElement("div"); t.className="thumb"+(v.orient==="portrait"?" p":"");
   if(isVideoFile(v.url)) t.innerHTML='<video muted playsinline preload="metadata" src="'+v.url+'#t=0.6"></video>'; else t.innerHTML='<div class="lnk">link</div>'; return t; }
