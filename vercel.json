@@ -1,4 +1,4 @@
 {
-  "buildCommand": "node build-videos.js",
+  "buildCommand": "node build-videos.cjs",
   "outputDirectory": "."
 }
