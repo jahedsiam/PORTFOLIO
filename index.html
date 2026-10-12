@@ -291,9 +291,9 @@
   .lb-inner.portrait { max-width: 400px; }
   .lb-stage { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; background: #000; border: 1px solid var(--line-2); box-shadow: 0 30px 90px -20px var(--glow-violet); }
   .lb-inner.portrait .lb-stage { aspect-ratio: 9/16; }
-  .lb-stage iframe, .lb-stage video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .lb-fallback { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; color: var(--muted); font-size: 14px; }
-  .lb-fallback a { color: var(--cyan); }
+  .lb-stage iframe, .lb-stage video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 1; }
+  .lb-fallback { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: grid; place-items: center; text-align: center; padding: 24px; color: var(--muted); font-size: 14px; }
+  .lb-fallback a { color: var(--cyan); pointer-events: auto; }
   .lb-close { position: absolute; top: -48px; right: 0; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid var(--line-2); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; transition: background .2s; }
   .lb-close:hover { background: rgba(255,255,255,0.18); }
   .lb-cap { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -985,8 +985,8 @@
     }
     var fb = document.createElement("div");
     fb.className = "lb-fallback";
-    fb.innerHTML = "Loading player… if the video doesn't appear, <a href='" + v.url + "' target='_blank' rel='noopener'>open it in a new tab ↗</a>";
-    lbStage.appendChild(fb);
+    fb.textContent = "Loading player…";
+    lbStage.insertBefore(fb, lbStage.firstChild);
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
   }
