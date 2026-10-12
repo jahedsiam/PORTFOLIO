@@ -268,6 +268,9 @@
   .vthumb { position: relative; aspect-ratio: 16/9; overflow: hidden; }
   .vcard[data-orient="portrait"] .vthumb { aspect-ratio: 9/16; }
   .vthumb-bg { position: absolute; inset: 0; transition: transform .5s ease; }
+  .vthumb-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: transform .5s ease; }
+  .vcard:hover .vthumb-vid { transform: scale(1.06); }
+  .reel-poster .reel-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
   .vcard:hover .vthumb-bg { transform: scale(1.06); }
   .vthumb-grain { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px); background-size: 4px 4px; }
   .vplay { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transition: opacity .25s; background: rgba(5,5,15,0.3); }
@@ -757,6 +760,7 @@
     { title: "Nova Labs Launch Ad",      category: "Ads",            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape", thumb: 2 },
     { title: "Qubit Feature Demo",       category: "Product Videos", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape", thumb: 0 }
   ];
+/* TIP: to use an uploaded file, put it in the videos/ folder and write  url: "videos/my-video.mp4"  (no thumbnail needed). */
 /* ▲▲▲  END OF EDITABLE SECTION  ▲▲▲ */
 
   var POSTERS = [
@@ -785,6 +789,14 @@
   var filtersEl = document.getElementById("filters");
   var playSVG = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
 
+  /* Uploaded .mp4 files get an automatic thumbnail from the video itself (a frame at ~0.6s) */
+  function isMp4(u) { return /\.(mp4|webm|mov)(\?|#|$)/i.test(u || ""); }
+  function autoThumb(v) {
+    return (isMp4(v.url) && !v.thumbImg)
+      ? '<video class="vthumb-vid" src="' + v.url + '#t=0.6" muted playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>'
+      : '';
+  }
+
   function makeCard(v) {
     var card = document.createElement("div");
     card.className = "vcard";
@@ -794,6 +806,7 @@
     card.innerHTML =
       '<div class="vthumb">' +
         '<div class="vthumb-bg" style="background:' + bg + '"></div>' +
+        autoThumb(v) +
         '<div class="vthumb-grain"></div>' +
         '<span class="vcat">' + v.category + '</span>' +
         (v.orient === "portrait" ? '<span class="vbadge-vert">9:16 REEL</span>' : '') +
@@ -865,6 +878,17 @@
   document.getElementById("lbClose").addEventListener("click", closeLightbox);
   lb.addEventListener("click", function (e) { if (e.target === lb) closeLightbox(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
+
+  /* ---- Showreel poster from an uploaded .mp4 ---- */
+  (function () {
+    var poster = document.querySelector(".reel-poster");
+    if (poster && typeof SHOWREEL === "object" && isMp4(SHOWREEL.url) && !SHOWREEL.thumbImg) {
+      var vid = document.createElement("video");
+      vid.className = "reel-vid"; vid.src = SHOWREEL.url + "#t=0.6";
+      vid.muted = true; vid.playsInline = true; vid.preload = "metadata"; vid.setAttribute("aria-hidden", "true");
+      poster.appendChild(vid);
+    }
+  })();
 
   /* ---- Showreel opens lightbox too ---- */
   document.querySelector(".reel-frame").addEventListener("click", function () { openLightbox(SHOWREEL); });
