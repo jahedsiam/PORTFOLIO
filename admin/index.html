@@ -155,7 +155,9 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
 <div class="toast hidden" id="toast"></div>
 
 <script type="module">
-import { upload } from "./blob-client.js";
+// Blob client is loaded lazily (only when uploading) so a CDN/module hiccup never blocks login or editing.
+let _upload = null;
+async function getUpload() { if (!_upload) { const m = await import("./blob-client.js"); _upload = m.upload; } return _upload; }
 
 const $ = (s) => document.querySelector(s);
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -268,6 +270,7 @@ $("#saveBtn").addEventListener("click",()=>save());
 
 /* ---------- upload helpers ---------- */
 async function uploadFile(file, folder, bar){
+  const upload=await getUpload();
   const safe=file.name.replace(/[^\w.\-]+/g,"_");
   const blob=await upload(folder+"/"+safe, file, { access:"public", handleUploadUrl:"/api/upload", multipart:file.size>20*1024*1024, onUploadProgress:(p)=>{bar.style.width=p.percentage+"%";} });
   return blob.url;
