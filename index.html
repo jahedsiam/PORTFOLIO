@@ -436,13 +436,13 @@
 <!-- ======================= NAV ======================= -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#top" class="logo"><span class="dot">S</span> Sahin</a>
+    <a href="#top" class="logo"><span class="dot" data-c="brand.dot">S</span> <span data-c="brand.name">Sahin</span></a>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="#process">Process</a>
-      <a href="#contact" class="nav-cta">Let's talk</a>
+      <a href="#contact" class="nav-cta" data-c="brand.cta">Let's talk</a>
     </div>
   </div>
 </nav>
@@ -456,12 +456,12 @@
     <div class="glow glow-b animate-glow" style="animation-delay:-6s"></div>
     <div class="hero-spotlight"></div>
     <div class="wrap hero-inner">
-      <span class="pill-badge"><span class="live-dot"></span> Available for new projects</span>
-      <h1>Videos that make people <span class="grad-text">stop scrolling.</span></h1>
-      <p class="hero-sub">I'm Jahedul Islam Sahin — a video editor crafting product videos, short-form reels, and ad creatives that turn attention into action.</p>
+      <span class="pill-badge"><span class="live-dot"></span> <span data-c="hero.badge">Available for new projects</span></span>
+      <h1 id="heroTitle"><span data-c="hero.titleLead">Videos that make people </span><span class="grad-text" data-c="hero.titleAccent">stop scrolling.</span></h1>
+      <p class="hero-sub" data-c="hero.sub">I'm Jahedul Islam Sahin — a video editor crafting product videos, short-form reels, and ad creatives that turn attention into action.</p>
       <div class="hero-actions">
-        <a href="#showreel" class="btn btn-primary">▶ Watch showreel</a>
-        <a href="#work" class="btn btn-ghost">See the work</a>
+        <a href="#showreel" class="btn btn-primary"><span data-c="hero.btnPrimary">▶ Watch showreel</span></a>
+        <a href="#work" class="btn btn-ghost" data-c="hero.btnGhost">See the work</a>
       </div>
 
     </div>
@@ -493,12 +493,12 @@
     <div class="wrap">
       <div class="sec-head">
         <div class="left reveal">
-          <span class="eyebrow">What I do</span>
-          <h2>Every video, built to convert.</h2>
-          <p>From the first hook to the final frame — editing that keeps people watching and moves them to act.</p>
+          <span class="eyebrow" data-c="services.eyebrow">What I do</span>
+          <h2 data-c="services.heading">Every video, built to convert.</h2>
+          <p data-c="services.sub">From the first hook to the final frame — editing that keeps people watching and moves them to act.</p>
         </div>
       </div>
-      <div class="services-grid">
+      <div class="services-grid" id="servicesGrid">
         <div class="service reveal"><div class="svc-ico" data-icon="film"></div><h3>Product Videos</h3><p>Clear, polished demos that explain what you do in under 60 seconds.</p></div>
         <div class="service reveal"><div class="svc-ico" data-icon="reel"></div><h3>Short-form Reels</h3><p>Punchy vertical edits built for Reels, Shorts, and TikTok retention.</p></div>
         <div class="service reveal"><div class="svc-ico" data-icon="target"></div><h3>Ad Creatives</h3><p>Scroll-stopping paid ads with hooks tested to drive real clicks.</p></div>
@@ -513,9 +513,9 @@
     <div class="wrap">
       <div class="sec-head">
         <div class="left reveal">
-          <span class="eyebrow">Featured work</span>
-          <h2>Recent edits worth watching.</h2>
-          <p>A selection of product videos, reels, and ad creatives. Tap any card to play.</p>
+          <span class="eyebrow" data-c="work.eyebrow">Featured work</span>
+          <h2 data-c="work.heading">Recent edits worth watching.</h2>
+          <p data-c="work.sub">A selection of product videos, reels, and ad creatives. Tap any card to play.</p>
         </div>
       </div>
 
@@ -523,8 +523,8 @@
       <div class="video-grid reveal" id="landscapeGrid"></div>
 
       <div class="reels-head reveal" id="reelsHead">
-        <h3>Reels</h3>
-        <p>Vertical edits built for Shorts, Reels &amp; TikTok.</p>
+        <h3 data-c="work.reelsHeading">Reels</h3>
+        <p data-c="work.reelsSub">Vertical edits built for Shorts, Reels &amp; TikTok.</p>
       </div>
       <div class="reels-row reveal" id="reelsRow"></div>
     </div>
@@ -536,8 +536,8 @@
     <div class="wrap">
       <div class="sec-head">
         <div class="left reveal">
-          <span class="eyebrow">About me</span>
-          <h2>Two years. Hundreds of cuts.</h2>
+          <span class="eyebrow" data-c="about.eyebrow">About me</span>
+          <h2 data-c="about.heading">Two years. Hundreds of cuts.</h2>
         </div>
       </div>
       <div class="about-grid">
@@ -552,14 +552,14 @@
           </div>
         </div>
         <div class="reveal">
-          <p class="about-lede">I'm <span class="grad-text">Jahedul Islam Sahin</span>, a video editor who cares about the moments most people skip — the hook, the pacing, the cut that lands.</p>
-          <div class="about-body">
+          <p class="about-lede" id="aboutLede"><span data-c="about.ledePre">I'm </span><span class="grad-text" data-c="about.ledeName">Jahedul Islam Sahin</span><span data-c="about.ledePost">, a video editor who cares about the moments most people skip — the hook, the pacing, the cut that lands.</span></p>
+          <div class="about-body" id="aboutBody">
             <p>Over the last two years I've edited everything from SaaS product demos to fast-paced social reels. I obsess over rhythm and retention: keeping a viewer locked in from the first frame to the last.</p>
             <p>I work closely with founders and creators, usually turning raw footage around in days, not weeks — with feedback loops that keep the whole thing simple.</p>
           </div>
         </div>
       </div>
-      <div class="stats reveal">
+      <div class="stats reveal" id="statsRow">
         <div class="stat-card"><div class="n">2</div><div class="l">Years editing</div></div>
         <div class="stat-card"><div class="n">120+</div><div class="l">Videos delivered</div></div>
         <div class="stat-card"><div class="n">30+</div><div class="l">Happy clients</div></div>
@@ -574,9 +574,9 @@
     <div class="wrap">
       <div class="sec-head">
         <div class="left reveal">
-          <span class="eyebrow">How it works</span>
-          <h2>How we make it happen.</h2>
-          <p>The same four-step rhythm behind every video I ship — no chaos, no endless revisions.</p>
+          <span class="eyebrow" data-c="process.eyebrow">How it works</span>
+          <h2 data-c="process.heading">How we make it happen.</h2>
+          <p data-c="process.sub">The same four-step rhythm behind every video I ship — no chaos, no endless revisions.</p>
         </div>
       </div>
       <div class="timeline" id="timeline">
@@ -588,8 +588,8 @@
             <div class="tl-num">01</div>
             <div class="tl-body">
               <div class="tl-ico anim"><svg class="pg pg-discovery" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g opacity=".4"><line x1="12" y1="15" x2="34" y2="15"/><line x1="12" y1="24" x2="29" y2="24"/><line x1="12" y1="33" x2="34" y2="33"/></g><g class="mag"><circle cx="20" cy="24" r="7" fill="currentColor" fill-opacity=".14"/><line x1="25" y1="29" x2="30" y2="34"/></g></svg></div>
-              <h4>Discovery</h4>
-              <p>We lock in the goal, the audience, and the one action your video should drive.</p>
+              <h4 data-c="process.s0t">Discovery</h4>
+              <p data-c="process.s0d">We lock in the goal, the audience, and the one action your video should drive.</p>
             </div>
           </div>
         </div>
@@ -600,8 +600,8 @@
             <div class="tl-num">02</div>
             <div class="tl-body">
               <div class="tl-ico anim"><svg class="pg pg-script" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="12" width="13" height="10" rx="2" fill="currentColor" fill-opacity=".14"/><rect x="26" y="12" width="13" height="10" rx="2" fill="currentColor" fill-opacity=".14"/><path class="draw" d="M11 31 H30"/><g class="pen"><line x1="30" y1="35" x2="36" y2="29"/><path d="M36 29 l2.2 -2.2 2 2 -2.2 2.2z" fill="currentColor" stroke="none"/></g></svg></div>
-              <h4>Script &amp; Storyboard</h4>
-              <p>You approve the structure and flow before a single cut — zero surprises later.</p>
+              <h4 data-c="process.s1t">Script &amp; Storyboard</h4>
+              <p data-c="process.s1d">You approve the structure and flow before a single cut — zero surprises later.</p>
             </div>
           </div>
         </div>
@@ -612,8 +612,8 @@
             <div class="tl-num">03</div>
             <div class="tl-body">
               <div class="tl-ico anim"><svg class="pg pg-edit" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g stroke="none"><rect x="8" y="20" width="9" height="8" rx="1.5" fill="currentColor" fill-opacity=".18"/><rect x="19" y="20" width="7" height="8" rx="1.5" fill="currentColor" fill-opacity=".32"/><rect x="28" y="20" width="12" height="8" rx="1.5" fill="currentColor" fill-opacity=".18"/></g><g class="playhead"><line x1="24" y1="14" x2="24" y2="34"/><circle cx="24" cy="12.5" r="2" fill="currentColor" stroke="none"/></g></svg></div>
-              <h4>Edit &amp; Motion</h4>
-              <p>Cuts, sound design, captions and motion graphics come together into the final piece.</p>
+              <h4 data-c="process.s2t">Edit &amp; Motion</h4>
+              <p data-c="process.s2d">Cuts, sound design, captions and motion graphics come together into the final piece.</p>
             </div>
           </div>
         </div>
@@ -624,8 +624,8 @@
             <div class="tl-num">04</div>
             <div class="tl-body">
               <div class="tl-ico anim"><svg class="pg pg-delivery" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="rocket"><path d="M24 9 c4 3 5.5 8 5.5 12 l-2.5 3 h-6 l-2.5 -3 c0 -4 1.5 -9 5.5 -12z" fill="currentColor" fill-opacity=".16"/><circle cx="24" cy="17" r="2"/><path d="M21.5 24 l-3 4 M26.5 24 l3 4"/><path class="flame" d="M22 24 q2 5 2 6.5 q0 -1.5 2 -6.5z" fill="currentColor" stroke="none" fill-opacity=".85"/></g></svg></div>
-              <h4>Delivery</h4>
-              <p>Every format you need — landscape, vertical and cutdowns — delivered ready to post.</p>
+              <h4 data-c="process.s3t">Delivery</h4>
+              <p data-c="process.s3d">Every format you need — landscape, vertical and cutdowns — delivered ready to post.</p>
             </div>
           </div>
         </div>
@@ -636,7 +636,7 @@
   <!-- ======================= TRUSTED BY ======================= -->
   <section class="section trust-section">
     <div class="wrap trust">
-      <div class="trust-label">Trusted by founders &amp; teams at</div>
+      <div class="trust-label" data-c="trust.label">Trusted by founders &amp; teams at</div>
       <div class="marquee">
         <div class="marquee-track" id="marquee">
           <span class="brandmark">Lumio</span><span class="brandmark">Northpeak</span><span class="brandmark">Vantage9</span><span class="brandmark">Qubit</span><span class="brandmark">Orbital</span><span class="brandmark">Finch</span><span class="brandmark">Cedarline</span><span class="brandmark">Nova Labs</span>
@@ -651,16 +651,16 @@
     <div class="wrap">
       <div class="sec-head" style="justify-content:center;text-align:center;flex-direction:column;align-items:center">
         <div class="left reveal" style="text-align:center">
-          <span class="eyebrow" style="justify-content:center">Reviews</span>
-          <h2>Don't just take my word for it.</h2>
+          <span class="eyebrow" style="justify-content:center" data-c="reviews.eyebrow">Reviews</span>
+          <h2 data-c="reviews.heading">Don't just take my word for it.</h2>
         </div>
       </div>
       <div class="rating-row reveal">
         <span class="stars">★★★★★</span>
-        <span class="score">4.9</span>
-        <span class="txt">from 30+ client reviews</span>
+        <span class="score" data-c="reviews.score">4.9</span>
+        <span class="txt" data-c="reviews.scoreText">from 30+ client reviews</span>
       </div>
-      <div class="reviews">
+      <div class="reviews" id="reviewsList">
         <div class="review reveal"><p>"Sahin turned our messy footage into the best-performing ad we've ever run. Fast, sharp, and zero hand-holding needed."</p><div class="who"><div class="avatar">AR</div><div><div class="nm">Ayaan Rahman</div><div class="rl">Founder, Lumio</div></div></div></div>
         <div class="review reveal"><p>"Our reels went from forgettable to actually getting saved and shared. The pacing he brings is on another level."</p><div class="who"><div class="avatar">SK</div><div><div class="nm">Sara Khan</div><div class="rl">Marketing Lead, Northpeak</div></div></div></div>
         <div class="review reveal"><p>"Delivered our product video in four days and it became the centerpiece of our launch. Couldn't recommend him more."</p><div class="who"><div class="avatar">DM</div><div><div class="nm">Daniel Mensah</div><div class="rl">CEO, Vantage9</div></div></div></div>
@@ -675,9 +675,9 @@
   <section class="section contact" id="contact">
     <div class="glow glow-b"></div>
     <div class="wrap contact-inner">
-      <span class="eyebrow" style="justify-content:center">Let's work together</span>
-      <h2>Got footage? Let's make it <span class="grad-text">unmissable.</span></h2>
-      <p class="sub">Tell me about your project and I'll get back to you within 24 hours.</p>
+      <span class="eyebrow" style="justify-content:center" data-c="contact.eyebrow">Let's work together</span>
+      <h2 id="contactHeading"><span data-c="contact.headPre">Got footage? Let's make it </span><span class="grad-text" data-c="contact.headAccent">unmissable.</span></h2>
+      <p class="sub" data-c="contact.sub">Tell me about your project and I'll get back to you within 24 hours.</p>
       <div class="email-box">
         <span class="addr" id="email">hello@jahedulsahin.com</span>
         <button class="copy-btn" id="copyBtn">Copy email</button>
@@ -694,8 +694,8 @@
 
 <footer>
   <div class="wrap foot-inner">
-    <a href="#top" class="logo"><span class="dot">S</span> Jahedul Islam Sahin</a>
-    <span class="cr">© 2026 Jahedul Islam Sahin — Video Editor</span>
+    <a href="#top" class="logo"><span class="dot" data-c="brand.dot">S</span> <span data-c="brand.full">Jahedul Islam Sahin</span></a>
+    <span class="cr" data-c="brand.copyright">© 2026 Jahedul Islam Sahin — Video Editor</span>
   </div>
 </footer>
 
@@ -861,8 +861,30 @@
       poster.appendChild(vid);
     }
   }
-  function applySettings(st) {
-    if (!st) return;
+  /* ---- Apply all editable site content (text + lists + settings) from the admin panel ---- */
+  function getPath(o, p) { return p.split(".").reduce(function (a, k) { return (a && a[k] != null) ? a[k] : null; }, o); }
+  function initialsOf(name) { return (name || "").split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase() || "—"; }
+  function setBraced(el, str) {
+    if (!el || typeof str !== "string" || !str) return;
+    var m = str.match(/^([^{]*)\{([^}]*)\}([\s\S]*)$/);
+    el.innerHTML = "";
+    if (m) {
+      el.appendChild(document.createTextNode(m[1]));
+      var s = document.createElement("span"); s.className = "grad-text"; s.textContent = m[2]; el.appendChild(s);
+      el.appendChild(document.createTextNode(m[3]));
+    } else { el.textContent = str; }
+  }
+  function applySiteContent(c) {
+    if (!c) return;
+    document.querySelectorAll("[data-c]").forEach(function (el) {
+      var v = getPath(c, el.getAttribute("data-c"));
+      if (typeof v === "string" && v.length) el.textContent = v;
+    });
+    setBraced(document.getElementById("heroTitle"), getPath(c, "hero.title"));
+    setBraced(document.getElementById("aboutLede"), getPath(c, "about.lede"));
+    setBraced(document.getElementById("contactHeading"), getPath(c, "contact.heading"));
+
+    var st = c.settings || {};
     if (st.email) { var em = document.getElementById("email"); if (em) em.textContent = st.email;
       document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) { a.href = "mailto:" + st.email; }); }
     var so = st.socials || {};
@@ -870,20 +892,66 @@
       var a = document.querySelector('.social[data-icon="' + k + '"]'); if (a && so[k]) a.href = so[k];
     });
     if (st.aboutPhoto) { ABOUT_PHOTO = st.aboutPhoto; var f = document.getElementById("aboutPhoto");
-      if (f) f.innerHTML = '<img src="' + st.aboutPhoto + '" alt="Jahedul Islam Sahin" loading="lazy">'; }
+      if (f) f.innerHTML = '<img src="' + st.aboutPhoto + '" alt="' + (getPath(c, "brand.full") || "Jahedul Islam Sahin") + '" loading="lazy">'; }
+
+    if (c.services && c.services.items && c.services.items.length) {
+      var g = document.getElementById("servicesGrid"); g.innerHTML = "";
+      c.services.items.forEach(function (s) {
+        var d = document.createElement("div"); d.className = "service reveal";
+        var ico = document.createElement("div"); ico.className = "svc-ico"; ico.setAttribute("data-icon", s.icon || "film");
+        var h = document.createElement("h3"); h.textContent = s.title || "";
+        var p = document.createElement("p"); p.textContent = s.desc || "";
+        d.append(ico, h, p); g.appendChild(d); addReveal(d);
+      });
+      renderIcons(g);
+    }
+    if (c.about && c.about.body && c.about.body.length) {
+      var ab = document.getElementById("aboutBody"); ab.innerHTML = "";
+      c.about.body.forEach(function (t) { var p = document.createElement("p"); p.textContent = t; ab.appendChild(p); });
+    }
+    if (c.about && c.about.stats && c.about.stats.length) {
+      var sr = document.getElementById("statsRow"); sr.innerHTML = "";
+      c.about.stats.forEach(function (s) {
+        var d = document.createElement("div"); d.className = "stat-card";
+        var n = document.createElement("div"); n.className = "n"; n.textContent = s.n || "";
+        var l = document.createElement("div"); l.className = "l"; l.textContent = s.l || "";
+        d.append(n, l); sr.appendChild(d);
+      });
+    }
+    if (c.trust && c.trust.brands && c.trust.brands.length) {
+      var mq = document.getElementById("marquee"); mq.removeAttribute("data-base"); mq.innerHTML = "";
+      c.trust.brands.forEach(function (b) { var s = document.createElement("span"); s.className = "brandmark"; s.textContent = b; mq.appendChild(s); });
+      initMarquee();
+    }
+    if (c.reviews && c.reviews.items && c.reviews.items.length) {
+      var rl = document.getElementById("reviewsList"); rl.innerHTML = "";
+      c.reviews.items.forEach(function (r) {
+        var d = document.createElement("div"); d.className = "review reveal";
+        var p = document.createElement("p"); p.textContent = '"' + (r.quote || "") + '"';
+        var who = document.createElement("div"); who.className = "who";
+        var av = document.createElement("div"); av.className = "avatar"; av.textContent = r.initials || initialsOf(r.name);
+        var info = document.createElement("div");
+        var nm = document.createElement("div"); nm.className = "nm"; nm.textContent = r.name || "";
+        var rr = document.createElement("div"); rr.className = "rl"; rr.textContent = r.role || "";
+        info.append(nm, rr); who.append(av, info); d.append(p, who); rl.appendChild(d); addReveal(d);
+      });
+      initTypewriter();
+    }
   }
+
   (function loadWork() {
     function done(list) { renderWork(list); applyShowreelPoster(); }
     function get(u) { return fetch(u, { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }
-    // 1) admin panel content (/api/content)  2) videos/ folder manifest (videos.json)  3) sample list above
+    // 1) admin content (/api/content): text + videos  2) videos/ folder manifest  3) built-in samples
     get("/api/content").then(function (c) {
-      if (c && !c.empty && ((c.videos && c.videos.length) || c.showreel)) {
-        if (c.showreel && c.showreel.url) SHOWREEL = { title: "Showreel", category: "Showreel", url: c.showreel.url, orient: "landscape" };
-        applySettings(c.settings);
-        done(c.videos && c.videos.length ? c.videos : VIDEOS);
+      if (c && !c.empty) applySiteContent(c);
+      var hasVids = c && c.videos && c.videos.length;
+      var hasReel = c && c.showreel && c.showreel.url;
+      if (hasVids || hasReel) {
+        if (hasReel) SHOWREEL = { title: "Showreel", category: "Showreel", url: c.showreel.url, orient: "landscape" };
+        done(hasVids ? c.videos : VIDEOS);
         return;
       }
-      if (c && c.settings) applySettings(c.settings);
       return get("videos.json").then(function (m) {
         if (m && m.showreel) SHOWREEL = { title: "Showreel", category: "Showreel", url: m.showreel, orient: "landscape" };
         done(m && m.videos && m.videos.length ? m.videos : VIDEOS);
@@ -935,10 +1003,14 @@
   document.querySelector(".reel-frame").addEventListener("click", function () { openLightbox(SHOWREEL); });
 
   /* ---- Duplicate marquee for seamless loop ---- */
-  (function () {
+  function initMarquee() {
     var m = document.getElementById("marquee");
-    if (m) m.innerHTML += m.innerHTML;
-  })();
+    if (!m) return;
+    var base = m.getAttribute("data-base");
+    if (base == null) { base = m.innerHTML; m.setAttribute("data-base", base); }
+    m.innerHTML = base + base;
+  }
+  initMarquee();
 
   /* ---- Copy email ---- */
   (function () {
@@ -960,12 +1032,13 @@
   })();
 
   /* ---- Render inline SVG icons from the ICONS map ---- */
-  (function () {
-    document.querySelectorAll("[data-icon]").forEach(function (el) {
+  function renderIcons(root) {
+    (root || document).querySelectorAll("[data-icon]").forEach(function (el) {
       var n = el.getAttribute("data-icon");
       if (ICONS[n]) el.innerHTML = ICONS[n];
     });
-  })();
+  }
+  renderIcons(document);
 
   /* ---- Inject About portrait if ABOUT_PHOTO is set ---- */
   (function () {
@@ -984,14 +1057,16 @@
   });
 
   /* ---- Scroll reveal (content stays visible if JS/motion off) ---- */
+  var revealIO = null;
+  function addReveal(el) { if (revealIO) { el.classList.remove("in"); revealIO.observe(el); } }
   (function () {
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
     document.documentElement.classList.add("reveal-ready");
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    revealIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); revealIO.unobserve(en.target); } });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    document.querySelectorAll(".reveal").forEach(function (el) { revealIO.observe(el); });
   })();
 
   /* ---- Process timeline: scroll-fill + node activation (runs regardless of motion pref) ---- */
@@ -1016,10 +1091,10 @@
   })();
 
   /* ---- Testimonials typewriter reveal ---- */
-  (function () {
+  function initTypewriter() {
     var ps = Array.prototype.slice.call(document.querySelectorAll(".review p"));
     if (!ps.length) return;
-    ps.forEach(function (p) { p.setAttribute("data-full", p.textContent); });
+    ps.forEach(function (p) { if (p.getAttribute("data-full") == null) p.setAttribute("data-full", p.textContent); });
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return; // leave full text visible
     ps.forEach(function (p) { p.textContent = ""; });
@@ -1050,7 +1125,8 @@
       });
     }, { threshold: 0.35 });
     ps.forEach(function (p) { io.observe(p); });
-  })();
+  }
+  initTypewriter();
 
   /* ---- Desktop hero -> showreel swap (sticky stage, scroll-linked) ---- */
   (function () {

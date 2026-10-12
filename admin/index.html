@@ -11,15 +11,16 @@
 :root{--bg:#0b0a18;--panel:#13122a;--line:rgba(255,255,255,.09);--text:#f4f4ff;--mute:#9a9ab8;--ind:#6366F1;--ind2:#818CF8;--red:#f87171;--green:#4ade80}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Geist,system-ui,sans-serif;min-height:100vh}
-button,input,select{font:inherit;color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
 .hidden{display:none!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}
 .box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}
 h1{margin:0 0 6px;font-size:22px}h2{margin:0 0 4px;font-size:18px}
 p.sub{color:var(--mute);margin:0 0 18px;font-size:14px}
-input[type=text],input[type=password],input[type=url],input[type=email],select{width:100%;background:#0d0c20;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none}
-input:focus,select:focus{border-color:var(--ind2)}
+input[type=text],input[type=password],input[type=url],input[type=email],select,textarea{width:100%;background:#0d0c20;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--ind2)}
 label{display:block;font-size:12px;color:var(--mute);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.06em}
+.hint{font-size:12px;color:var(--mute);margin-top:4px;text-transform:none;letter-spacing:0}
 .btn{background:var(--ind);border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer}
 .btn:hover{background:#4F46E5}.btn:disabled{opacity:.5;cursor:default}
 .btn.ghost{background:transparent;border:1px solid var(--line)}.btn.ghost:hover{background:rgba(255,255,255,.05)}
@@ -29,12 +30,14 @@ label{display:block;font-size:12px;color:var(--mute);margin:12px 0 5px;text-tran
 header{position:sticky;top:0;z-index:5;background:rgba(11,10,24,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .bar{max-width:1000px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .bar .grow{flex:1}
-.tabs{display:flex;gap:4px;max-width:1000px;margin:0 auto;padding:0 16px 10px}
-.tab{background:none;border:0;padding:8px 14px;border-radius:8px;color:var(--mute);cursor:pointer}
+.tabs{display:flex;gap:4px;max-width:1000px;margin:0 auto;padding:0 16px 10px;overflow-x:auto}
+.tab{background:none;border:0;padding:8px 14px;border-radius:8px;color:var(--mute);cursor:pointer;white-space:nowrap}
 .tab.on{background:rgba(99,102,241,.18);color:#fff}
-main{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
 .row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
 .drop{border:2px dashed rgba(129,140,248,.45);border-radius:12px;padding:26px;text-align:center;color:var(--mute);cursor:pointer;transition:.2s}
 .drop.over,.drop:hover{background:rgba(99,102,241,.1);color:#fff}
 .vitem{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
@@ -51,6 +54,12 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
 .up{font-size:13px;color:var(--mute);padding:6px 0}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1d1c3a;border:1px solid var(--line);padding:10px 16px;border-radius:10px;z-index:20;box-shadow:0 8px 30px #0008}
 .dirty{color:#fbbf24;font-size:13px}
+.litem{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;position:relative}
+.litem .lhead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.litem .lhead .t{font-size:13px;color:var(--mute);flex:1}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#0d0c20;border:1px solid var(--line);border-radius:100px;padding:6px 8px 6px 14px;margin:0 8px 8px 0}
+.pill input{width:110px;background:none;border:0;padding:0}
+.pill button{background:none;border:0;color:var(--red);cursor:pointer;font-size:16px;line-height:1}
 @media(max-width:700px){.vitem{grid-template-columns:90px 1fr}.vitem .acts{grid-column:1/-1;flex-direction:row}.fields{grid-template-columns:1fr}.thumb{width:90px}}
 </style>
 </head>
@@ -76,11 +85,7 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
       <button class="btn sm" id="saveBtn">Save &amp; publish</button>
       <button class="btn ghost sm" id="logoutBtn">Log out</button>
     </div>
-    <div class="tabs">
-      <button class="tab on" data-tab="videos">Videos</button>
-      <button class="tab" data-tab="showreel">Showreel</button>
-      <button class="tab" data-tab="settings">Site settings</button>
-    </div>
+    <div class="tabs" id="tabs"></div>
   </header>
 
   <main>
@@ -118,23 +123,31 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
       </div>
     </section>
 
-    <section id="tab-settings" class="hidden">
-      <div class="card">
-        <h2>Contact &amp; social</h2>
-        <label>Email</label><input type="email" id="sEmail" placeholder="you@example.com">
-        <label>YouTube link</label><input type="url" id="sYoutube">
-        <label>Instagram link</label><input type="url" id="sInstagram">
-        <label>LinkedIn link</label><input type="url" id="sLinkedin">
-        <label>X (Twitter) link</label><input type="url" id="sX">
-      </div>
-      <div class="card">
-        <h2>About photo</h2>
-        <p class="sub">Your portrait in the About section.</p>
-        <div id="photoPrev" style="margin-bottom:10px"></div>
+    <section id="tab-hero" class="hidden"><div class="card"><h2>Hero section</h2><div id="heroForm"></div></div></section>
+    <section id="tab-services" class="hidden">
+      <div class="card"><h2>Services — heading</h2><div id="servicesHead"></div></div>
+      <div class="card"><h2>Service cards</h2><div id="servicesList"></div><button class="btn ghost sm" id="svcAdd">+ Add service</button></div>
+    </section>
+    <section id="tab-about" class="hidden">
+      <div class="card"><h2>About — text</h2><div id="aboutHead"></div></div>
+      <div class="card"><h2>About paragraphs</h2><div id="aboutBodyList"></div><button class="btn ghost sm" id="abAdd">+ Add paragraph</button></div>
+      <div class="card"><h2>Stats</h2><div id="statsList"></div><button class="btn ghost sm" id="stAdd">+ Add stat</button></div>
+      <div class="card"><h2>About photo</h2><p class="sub">Your portrait in the About section.</p><div id="photoPrev" style="margin-bottom:10px"></div>
         <div class="drop" id="phDrop">Drop a photo (jpg / png / webp) or <u>click to browse</u><input type="file" id="phIn" accept="image/jpeg,image/png,image/webp" hidden></div>
-        <div id="phUp"></div>
-        <div style="margin-top:12px"><button class="btn ghost sm danger" id="phClear">Remove photo</button></div>
+        <div id="phUp"></div><div style="margin-top:12px"><button class="btn ghost sm danger" id="phClear">Remove photo</button></div>
       </div>
+    </section>
+    <section id="tab-process" class="hidden"><div class="card"><h2>Process section</h2><div id="processForm"></div></div></section>
+    <section id="tab-reviews" class="hidden">
+      <div class="card"><h2>Reviews — heading</h2><div id="reviewsHead"></div></div>
+      <div class="card"><h2>Trusted-by logos</h2><div id="trustHead"></div><label>Brand names</label><div id="brandsList"></div>
+        <div class="pill" style="border-style:dashed"><input type="text" id="brandNew" placeholder="Add brand…"><button id="brandAdd" style="color:var(--ind2)">+</button></div></div>
+      <div class="card"><h2>Review cards</h2><div id="reviewsList"></div><button class="btn ghost sm" id="rvAdd">+ Add review</button></div>
+    </section>
+    <section id="tab-contact" class="hidden">
+      <div class="card"><h2>Contact section</h2><div id="contactForm"></div></div>
+      <div class="card"><h2>Email &amp; social links</h2><div id="settingsForm"></div></div>
+      <div class="card"><h2>Branding (logo &amp; footer)</h2><div id="brandForm"></div></div>
     </section>
   </main>
 </div>
@@ -142,207 +155,277 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
 <div class="toast hidden" id="toast"></div>
 
 <script type="module">
-import { upload } from "https://esm.sh/@vercel/blob@2.8.1/client";
+import { upload } from "./blob-client.js";
 
 const $ = (s) => document.querySelector(s);
-let data = { showreel: null, videos: [], settings: { socials: {} } };
+const uid = () => Math.random().toString(36).slice(2, 10);
+const ICON_KEYS = ["film", "reel", "target", "sparkles", "search", "pen", "scissors", "rocket"];
+
+const DEFAULTS = {
+  videos: [], showreel: null,
+  settings: { email: "hello@jahedulsahin.com", aboutPhoto: "", socials: { youtube: "", instagram: "", linkedin: "", x: "" } },
+  brand: { dot: "S", name: "Sahin", cta: "Let's talk", full: "Jahedul Islam Sahin", copyright: "© 2026 Jahedul Islam Sahin — Video Editor" },
+  hero: { badge: "Available for new projects", title: "Videos that make people {stop scrolling.}", sub: "I'm Jahedul Islam Sahin — a video editor crafting product videos, short-form reels, and ad creatives that turn attention into action.", btnPrimary: "▶ Watch showreel", btnGhost: "See the work" },
+  services: { eyebrow: "What I do", heading: "Every video, built to convert.", sub: "From the first hook to the final frame — editing that keeps people watching and moves them to act.", items: [
+    { icon: "film", title: "Product Videos", desc: "Clear, polished demos that explain what you do in under 60 seconds." },
+    { icon: "reel", title: "Short-form Reels", desc: "Punchy vertical edits built for Reels, Shorts, and TikTok retention." },
+    { icon: "target", title: "Ad Creatives", desc: "Scroll-stopping paid ads with hooks tested to drive real clicks." },
+    { icon: "sparkles", title: "Motion & Explainers", desc: "Animated graphics and explainers that turn complexity into clarity." } ] },
+  work: { eyebrow: "Featured work", heading: "Recent edits worth watching.", sub: "A selection of product videos, reels, and ad creatives. Tap any card to play.", reelsHeading: "Reels", reelsSub: "Vertical edits built for Shorts, Reels & TikTok." },
+  about: { eyebrow: "About me", heading: "Two years. Hundreds of cuts.", lede: "I'm {Jahedul Islam Sahin}, a video editor who cares about the moments most people skip — the hook, the pacing, the cut that lands.", body: [
+    "Over the last two years I've edited everything from SaaS product demos to fast-paced social reels. I obsess over rhythm and retention: keeping a viewer locked in from the first frame to the last.",
+    "I work closely with founders and creators, usually turning raw footage around in days, not weeks — with feedback loops that keep the whole thing simple." ], stats: [
+    { n: "2", l: "Years editing" }, { n: "120+", l: "Videos delivered" }, { n: "30+", l: "Happy clients" }, { n: "12M+", l: "Views generated" } ] },
+  process: { eyebrow: "How it works", heading: "How we make it happen.", sub: "The same four-step rhythm behind every video I ship — no chaos, no endless revisions.",
+    s0t: "Discovery", s0d: "We lock in the goal, the audience, and the one action your video should drive.",
+    s1t: "Script & Storyboard", s1d: "You approve the structure and flow before a single cut — zero surprises later.",
+    s2t: "Edit & Motion", s2d: "Cuts, sound design, captions and motion graphics come together into the final piece.",
+    s3t: "Delivery", s3d: "Every format you need — landscape, vertical and cutdowns — delivered ready to post." },
+  trust: { label: "Trusted by founders & teams at", brands: ["Lumio", "Northpeak", "Vantage9", "Qubit", "Orbital", "Finch", "Cedarline", "Nova Labs"] },
+  reviews: { eyebrow: "Reviews", heading: "Don't just take my word for it.", score: "4.9", scoreText: "from 30+ client reviews", items: [
+    { quote: "Sahin turned our messy footage into the best-performing ad we've ever run. Fast, sharp, and zero hand-holding needed.", name: "Ayaan Rahman", role: "Founder, Lumio", initials: "AR" },
+    { quote: "Our reels went from forgettable to actually getting saved and shared. The pacing he brings is on another level.", name: "Sara Khan", role: "Marketing Lead, Northpeak", initials: "SK" },
+    { quote: "Delivered our product video in four days and it became the centerpiece of our launch. Couldn't recommend him more.", name: "Daniel Mensah", role: "CEO, Vantage9", initials: "DM" },
+    { quote: "Communicative, quick with revisions, and genuinely cares about the result. Felt like having an in-house editor.", name: "Priya Thomas", role: "Creator, 180K followers", initials: "PT" },
+    { quote: "He understood the brief better than we did. The explainer he cut made a complex product finally click for customers.", name: "Jon Oakes", role: "Product, Qubit", initials: "JO" },
+    { quote: "Reliable, talented, and fast. We've sent him every video project since and he's never missed.", name: "Mia Chen", role: "Ops, Orbital", initials: "MC" } ] },
+  contact: { eyebrow: "Let's work together", heading: "Got footage? Let's make it {unmissable.}", sub: "Tell me about your project and I'll get back to you within 24 hours." },
+};
+
+const TABS = [["videos","Videos"],["showreel","Showreel"],["hero","Hero"],["services","Services"],["about","About"],["process","Process"],["reviews","Reviews"],["contact","Contact & Brand"]];
+
+let data = JSON.parse(JSON.stringify(DEFAULTS));
 let dirty = false;
 
-function toast(t, ms) { const el = $("#toast"); el.textContent = t; el.classList.remove("hidden"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.add("hidden"), ms || 2600); }
-function setDirty(v) { dirty = v; $("#dirty").classList.toggle("hidden", !v); }
-window.addEventListener("beforeunload", (e) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
-const uid = () => Math.random().toString(36).slice(2, 10);
-const isVideoFile = (u) => /\.(mp4|webm|mov)(\?|#|$)/i.test(u || "");
-const titleFrom = (n) => n.replace(/\.[^.]+$/, "").replace(/^\d+[\s._-]*/, "").replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "Untitled";
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function toast(t, ms){ const el=$("#toast"); el.textContent=t; el.classList.remove("hidden"); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.add("hidden"), ms||2600); }
+function setDirty(v){ dirty=v; $("#dirty").classList.toggle("hidden", !v); }
+window.addEventListener("beforeunload",(e)=>{ if(dirty){ e.preventDefault(); e.returnValue=""; } });
+const isVideoFile=(u)=>/\.(mp4|webm|mov)(\?|#|$)/i.test(u||"");
+const titleFrom=(n)=>n.replace(/\.[^.]+$/,"").replace(/^\d+[\s._-]*/,"").replace(/[-_]+/g," ").replace(/\b\w/g,(c)=>c.toUpperCase())||"Untitled";
 
-async function api(path, opt) {
-  const r = await fetch(path, Object.assign({ credentials: "same-origin" }, opt));
-  let j = null; try { j = await r.json(); } catch (e) {}
-  if (r.status === 401 && path !== "/api/login") { showLogin(); throw new Error("Session expired — log in again"); }
-  if (!r.ok) throw new Error((j && j.error) || "Request failed (" + r.status + ")");
+function mergeText(def, saved){
+  if(!saved || typeof saved!=="object") return def;
+  Object.keys(saved).forEach((k)=>{
+    const v=saved[k];
+    if(Array.isArray(v)){ if(v.length) def[k]=v; }
+    else if(v && typeof v==="object"){ mergeText(def[k]||(def[k]={}), v); }
+    else if(typeof v==="string"){ if(v.length) def[k]=v; }
+  });
+  return def;
+}
+function mergeContent(c){
+  const d=clone(DEFAULTS);
+  c=c||{};
+  d.videos=(Array.isArray(c.videos)?c.videos:[]).map((v)=>Object.assign({id:uid()},v));
+  d.showreel=c.showreel||null;
+  if(c.settings){ d.settings.email=c.settings.email||d.settings.email; d.settings.aboutPhoto=c.settings.aboutPhoto||""; d.settings.socials=Object.assign(d.settings.socials, c.settings.socials||{}); }
+  ["brand","hero","services","work","about","process","trust","reviews","contact"].forEach((k)=>{ if(c[k]) mergeText(d[k], c[k]); });
+  return d;
+}
+
+async function api(path, opt){
+  const r=await fetch(path, Object.assign({credentials:"same-origin"}, opt));
+  let j=null; try{ j=await r.json(); }catch(e){}
+  if(r.status===401 && path!=="/api/login"){ showLogin(); throw new Error("Session expired — log in again"); }
+  if(!r.ok) throw new Error((j&&j.error)||"Request failed ("+r.status+")");
   return j;
 }
 
+/* ---------- field helpers ---------- */
+function inp(obj,key,ph,ta){ const e=document.createElement(ta?"textarea":"input"); if(!ta)e.type="text"; e.value=obj[key]||""; e.placeholder=ph||""; if(ta)e.rows=2; e.addEventListener("input",()=>{obj[key]=e.value;setDirty(true);}); return e; }
+function field(label,obj,key,opts){ opts=opts||{}; const w=document.createElement("div"); const l=document.createElement("label"); l.textContent=label; w.appendChild(l); w.appendChild(inp(obj,key,opts.ph,opts.ta)); if(opts.hint){const h=document.createElement("div");h.className="hint";h.textContent=opts.hint;w.appendChild(h);} return w; }
+function renderSpec(hostId, obj, spec){ const host=$("#"+hostId); host.innerHTML=""; spec.forEach((f)=>host.appendChild(field(f.label,obj,f.k,f))); }
+
 /* ---------- login ---------- */
-function showLogin() { $("#appView").classList.add("hidden"); $("#loginView").classList.remove("hidden"); }
-async function showApp() {
+function showLogin(){ $("#appView").classList.add("hidden"); $("#loginView").classList.remove("hidden"); }
+async function showApp(){
   $("#loginView").classList.add("hidden"); $("#appView").classList.remove("hidden");
-  try {
-    const c = await api("/api/content");
-    data = { showreel: c.showreel || null, videos: c.videos || [], settings: Object.assign({ socials: {} }, c.settings || {}) };
-    data.settings.socials = data.settings.socials || {};
-    data.videos.forEach((v) => { if (!v.id) v.id = uid(); });
-  } catch (e) { toast(e.message); }
+  try{ data=mergeContent(await api("/api/content")); }catch(e){ toast(e.message); data=clone(DEFAULTS); }
   renderAll(); setDirty(false);
 }
-$("#loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); $("#loginErr").textContent = ""; $("#loginBtn").disabled = true;
-  try { await api("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: $("#pw").value }) }); $("#pw").value = ""; await showApp(); }
-  catch (err) { $("#loginErr").textContent = err.message; }
-  $("#loginBtn").disabled = false;
+$("#loginForm").addEventListener("submit", async (e)=>{
+  e.preventDefault(); $("#loginErr").textContent=""; $("#loginBtn").disabled=true;
+  try{ await api("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("#pw").value})}); $("#pw").value=""; await showApp(); }
+  catch(err){ $("#loginErr").textContent=err.message; }
+  $("#loginBtn").disabled=false;
 });
-$("#logoutBtn").addEventListener("click", async () => { await fetch("/api/login", { method: "DELETE" }); location.reload(); });
-fetch("/api/login", { credentials: "same-origin" }).then((r) => r.json()).then((j) => { if (j.authed) showApp(); }).catch(() => {});
+$("#logoutBtn").addEventListener("click", async ()=>{ await fetch("/api/login",{method:"DELETE"}); location.reload(); });
+fetch("/api/login",{credentials:"same-origin"}).then((r)=>r.json()).then((j)=>{ if(j.authed) showApp(); }).catch(()=>{});
 
 /* ---------- tabs ---------- */
-document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
-  document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("on", x === t));
-  ["videos", "showreel", "settings"].forEach((n) => $("#tab-" + n).classList.toggle("hidden", n !== t.dataset.tab));
-}));
+(function(){ const t=$("#tabs"); TABS.forEach(([id,label],i)=>{ const b=document.createElement("button"); b.className="tab"+(i===0?" on":""); b.textContent=label; b.dataset.tab=id;
+  b.addEventListener("click",()=>{ document.querySelectorAll(".tab").forEach((x)=>x.classList.toggle("on",x===b)); TABS.forEach(([n])=>$("#tab-"+n).classList.toggle("hidden",n!==id)); }); t.appendChild(b); }); })();
 
 /* ---------- save ---------- */
-async function save(quiet) {
-  collectSettings();
-  $("#saveBtn").disabled = true;
-  try { await api("/api/content", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); setDirty(false); toast(quiet ? "Saved ✓" : "Saved & published ✓ (live in a few seconds)"); }
-  catch (e) { toast("Save failed: " + e.message, 5000); }
-  $("#saveBtn").disabled = false;
+async function save(quiet){
+  $("#saveBtn").disabled=true;
+  try{ await api("/api/content",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)}); setDirty(false); toast(quiet?"Saved ✓":"Saved & published ✓ (live in a few seconds)"); }
+  catch(e){ toast("Save failed: "+e.message,5000); }
+  $("#saveBtn").disabled=false;
 }
-$("#saveBtn").addEventListener("click", () => save());
+$("#saveBtn").addEventListener("click",()=>save());
 
-/* ---------- upload helper ---------- */
-async function uploadFile(file, folder, bar) {
-  const safe = file.name.replace(/[^\w.\-]+/g, "_");
-  const blob = await upload(folder + "/" + safe, file, {
-    access: "public", handleUploadUrl: "/api/upload", multipart: file.size > 20 * 1024 * 1024,
-    onUploadProgress: (p) => { bar.style.width = p.percentage + "%"; },
-  });
+/* ---------- upload helpers ---------- */
+async function uploadFile(file, folder, bar){
+  const safe=file.name.replace(/[^\w.\-]+/g,"_");
+  const blob=await upload(folder+"/"+safe, file, { access:"public", handleUploadUrl:"/api/upload", multipart:file.size>20*1024*1024, onUploadProgress:(p)=>{bar.style.width=p.percentage+"%";} });
   return blob.url;
 }
-function progressRow(host, name) {
-  const d = document.createElement("div"); d.className = "up";
-  d.innerHTML = '<span></span><div class="prog"><i></i></div>'; d.firstChild.textContent = name;
-  host.appendChild(d); return { el: d, bar: d.querySelector("i"), label: d.firstChild };
+function progressRow(host,name){ const d=document.createElement("div"); d.className="up"; d.innerHTML='<span></span><div class="prog"><i></i></div>'; d.firstChild.textContent=name; host.appendChild(d); return {el:d,bar:d.querySelector("i"),label:d.firstChild}; }
+function bindDrop(dropId, inId, handler){ const drop=$("#"+dropId), fi=$("#"+inId);
+  drop.addEventListener("click",()=>fi.click());
+  ["dragover","dragenter"].forEach((ev)=>drop.addEventListener(ev,(e)=>{e.preventDefault();drop.classList.add("over");}));
+  ["dragleave","drop"].forEach((ev)=>drop.addEventListener(ev,(e)=>{e.preventDefault();drop.classList.remove("over");}));
+  drop.addEventListener("drop",(e)=>handler(e.dataTransfer.files));
+  fi.addEventListener("change",()=>{handler(fi.files);fi.value="";});
 }
 
-/* ---------- videos ---------- */
-const orientSel = $("#upOrient");
-orientSel.addEventListener("change", () => { $("#catWrap").classList.toggle("hidden", orientSel.value === "portrait"); });
-const drop = $("#drop"), fileIn = $("#fileIn");
-drop.addEventListener("click", () => fileIn.click());
-["dragover", "dragenter"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
-["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
-drop.addEventListener("drop", (e) => handleFiles(e.dataTransfer.files));
-fileIn.addEventListener("change", () => { handleFiles(fileIn.files); fileIn.value = ""; });
-
-async function handleFiles(files) {
-  const orient = orientSel.value, cat = orient === "portrait" ? "Reels" : ($("#upCat").value.trim() || "Videos");
-  for (const f of Array.from(files)) {
-    if (!/^video\//.test(f.type) && !isVideoFile(f.name)) { toast(f.name + " is not a video"); continue; }
-    const row = progressRow($("#uploads"), f.name + " — uploading…");
-    try {
-      const url = await uploadFile(f, "videos", row.bar);
-      data.videos.push({ id: uid(), title: titleFrom(f.name), category: cat, url, orient });
-      row.label.textContent = f.name + " — done ✓"; row.bar.style.width = "100%";
-      renderAll(); await save(true);
-      setTimeout(() => row.el.remove(), 3000);
-    } catch (e) { row.label.textContent = f.name + " — failed: " + e.message; row.label.style.color = "var(--red)"; }
+/* ---------- VIDEOS ---------- */
+$("#upOrient").addEventListener("change",()=>{ $("#catWrap").classList.toggle("hidden", $("#upOrient").value==="portrait"); });
+bindDrop("drop","fileIn",handleFiles);
+async function handleFiles(files){
+  const orient=$("#upOrient").value, cat=orient==="portrait"?"Reels":($("#upCat").value.trim()||"Videos");
+  for(const f of Array.from(files)){
+    if(!/^video\//.test(f.type) && !isVideoFile(f.name)){ toast(f.name+" is not a video"); continue; }
+    const row=progressRow($("#uploads"), f.name+" — uploading…");
+    try{ const url=await uploadFile(f,"videos",row.bar);
+      data.videos.push({id:uid(),title:titleFrom(f.name),category:cat,url,orient});
+      row.label.textContent=f.name+" — done ✓"; row.bar.style.width="100%"; renderVideos(); await save(true); setTimeout(()=>row.el.remove(),3000);
+    }catch(e){ row.label.textContent=f.name+" — failed: "+e.message; row.label.style.color="var(--red)"; }
   }
 }
-$("#linkAdd").addEventListener("click", () => {
-  const u = $("#linkIn").value.trim(); if (!u) return;
-  const orient = orientSel.value;
-  data.videos.push({ id: uid(), title: "New video", category: orient === "portrait" ? "Reels" : ($("#upCat").value.trim() || "Videos"), url: u, orient });
-  $("#linkIn").value = ""; renderAll(); setDirty(true);
-});
+$("#linkAdd").addEventListener("click",()=>{ const u=$("#linkIn").value.trim(); if(!u) return; const orient=$("#upOrient").value;
+  data.videos.push({id:uid(),title:"New video",category:orient==="portrait"?"Reels":($("#upCat").value.trim()||"Videos"),url:u,orient}); $("#linkIn").value=""; renderVideos(); setDirty(true); });
 
-function thumbEl(v) {
-  const t = document.createElement("div"); t.className = "thumb" + (v.orient === "portrait" ? " p" : "");
-  if (isVideoFile(v.url)) t.innerHTML = '<video muted playsinline preload="metadata" src="' + v.url + '#t=0.6"></video>';
-  else t.innerHTML = '<div class="lnk">link</div>';
-  return t;
-}
-function itemEl(v) {
-  const el = document.createElement("div"); el.className = "vitem";
-  el.appendChild(thumbEl(v));
-  const f = document.createElement("div"); f.className = "fields";
-  const ti = document.createElement("input"); ti.type = "text"; ti.value = v.title; ti.placeholder = "Title";
-  const ca = document.createElement("input"); ca.type = "text"; ca.value = v.category; ca.placeholder = "Category"; ca.setAttribute("list", "catList");
-  if (v.orient === "portrait") ca.disabled = true;
-  const or = document.createElement("select"); or.innerHTML = '<option value="landscape">Landscape</option><option value="portrait">Reel 9:16</option>'; or.value = v.orient;
-  ti.addEventListener("input", () => { v.title = ti.value; setDirty(true); });
-  ca.addEventListener("input", () => { v.category = ca.value; setDirty(true); });
-  or.addEventListener("change", () => { v.orient = or.value; v.category = or.value === "portrait" ? "Reels" : (v.category === "Reels" ? "Videos" : v.category); setDirty(true); renderAll(); });
-  f.append(ti, ca, or); el.appendChild(f);
-  const a = document.createElement("div"); a.className = "acts";
-  const mk = (txt, fn, cls) => { const b = document.createElement("button"); b.className = "btn ghost sm " + (cls || ""); b.textContent = txt; b.addEventListener("click", fn); return b; };
-  const row = document.createElement("div"); row.style.cssText = "display:flex;gap:6px";
-  row.append(mk("↑", () => move(v, -1)), mk("↓", () => move(v, 1)));
-  a.append(row, mk("Delete", () => del(v), "danger")); el.appendChild(a);
-  return el;
-}
-function move(v, d) {
-  const same = data.videos.filter((x) => (x.orient === "portrait") === (v.orient === "portrait"));
-  const i = same.indexOf(v), j = i + d; if (j < 0 || j >= same.length) return;
-  const a = data.videos.indexOf(v), b = data.videos.indexOf(same[j]);
-  data.videos[a] = same[j]; data.videos[b] = v; setDirty(true); renderAll();
-}
-async function del(v) {
-  if (!confirm('Delete "' + v.title + '"?')) return;
-  data.videos = data.videos.filter((x) => x !== v);
-  if (/blob\.vercel-storage\.com/.test(v.url)) { try { await api("/api/remove-file", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: v.url }) }); } catch (e) {} }
-  renderAll(); await save(true);
-}
-function renderAll() {
-  const L = $("#listL"), P = $("#listP"); L.innerHTML = ""; P.innerHTML = "";
-  const l = data.videos.filter((v) => v.orient !== "portrait"), p = data.videos.filter((v) => v.orient === "portrait");
-  l.forEach((v) => L.appendChild(itemEl(v))); p.forEach((v) => P.appendChild(itemEl(v)));
-  if (!l.length) L.innerHTML = '<div class="up">No landscape videos yet.</div>';
-  if (!p.length) P.innerHTML = '<div class="up">No reels yet.</div>';
-  const cats = []; l.forEach((v) => { if (cats.indexOf(v.category) < 0) cats.push(v.category); });
-  $("#catList").innerHTML = cats.map((c) => '<option value="' + c.replace(/"/g, "&quot;") + '">').join("");
-  renderShowreel(); renderSettings();
+function thumbEl(v){ const t=document.createElement("div"); t.className="thumb"+(v.orient==="portrait"?" p":"");
+  if(isVideoFile(v.url)) t.innerHTML='<video muted playsinline preload="metadata" src="'+v.url+'#t=0.6"></video>'; else t.innerHTML='<div class="lnk">link</div>'; return t; }
+function vitemEl(v){ const el=document.createElement("div"); el.className="vitem"; el.appendChild(thumbEl(v));
+  const f=document.createElement("div"); f.className="fields";
+  const ti=document.createElement("input"); ti.type="text"; ti.value=v.title; ti.placeholder="Title";
+  const ca=document.createElement("input"); ca.type="text"; ca.value=v.category; ca.placeholder="Category"; ca.setAttribute("list","catList"); if(v.orient==="portrait") ca.disabled=true;
+  const or=document.createElement("select"); or.innerHTML='<option value="landscape">Landscape</option><option value="portrait">Reel 9:16</option>'; or.value=v.orient;
+  ti.addEventListener("input",()=>{v.title=ti.value;setDirty(true);});
+  ca.addEventListener("input",()=>{v.category=ca.value;setDirty(true);});
+  or.addEventListener("change",()=>{v.orient=or.value; v.category=or.value==="portrait"?"Reels":(v.category==="Reels"?"Videos":v.category); setDirty(true); renderVideos();});
+  f.append(ti,ca,or); el.appendChild(f);
+  const a=document.createElement("div"); a.className="acts";
+  const mk=(txt,fn,cls)=>{const b=document.createElement("button"); b.className="btn ghost sm "+(cls||""); b.textContent=txt; b.addEventListener("click",fn); return b;};
+  const row=document.createElement("div"); row.style.cssText="display:flex;gap:6px"; row.append(mk("↑",()=>moveV(v,-1)),mk("↓",()=>moveV(v,1)));
+  a.append(row, mk("Delete",()=>delV(v),"danger")); el.appendChild(a); return el; }
+function moveV(v,d){ const same=data.videos.filter((x)=>(x.orient==="portrait")===(v.orient==="portrait")); const i=same.indexOf(v), j=i+d; if(j<0||j>=same.length) return;
+  const a=data.videos.indexOf(v), b=data.videos.indexOf(same[j]); data.videos[a]=same[j]; data.videos[b]=v; setDirty(true); renderVideos(); }
+async function delV(v){ if(!confirm('Delete "'+v.title+'"?')) return; data.videos=data.videos.filter((x)=>x!==v);
+  if(/blob\.vercel-storage\.com/.test(v.url)){ try{ await api("/api/remove-file",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:v.url})}); }catch(e){} }
+  renderVideos(); await save(true); }
+function renderVideos(){
+  const L=$("#listL"), P=$("#listP"); L.innerHTML=""; P.innerHTML="";
+  const l=data.videos.filter((v)=>v.orient!=="portrait"), p=data.videos.filter((v)=>v.orient==="portrait");
+  l.forEach((v)=>L.appendChild(vitemEl(v))); p.forEach((v)=>P.appendChild(vitemEl(v)));
+  if(!l.length) L.innerHTML='<div class="up">No landscape videos yet.</div>'; if(!p.length) P.innerHTML='<div class="up">No reels yet.</div>';
+  const cats=[]; l.forEach((v)=>{ if(cats.indexOf(v.category)<0) cats.push(v.category); });
+  $("#catList").innerHTML=cats.map((c)=>'<option value="'+c.replace(/"/g,"&quot;")+'">').join("");
 }
 
-/* ---------- showreel ---------- */
-function renderShowreel() {
-  const s = data.showreel;
-  $("#srCurrent").innerHTML = s ? "Current: <b></b>" : "No showreel set — the site shows its default.";
-  if (s) $("#srCurrent b").textContent = s.url.split("/").pop();
-}
-const srDrop = $("#srDrop"), srIn = $("#srIn");
-srDrop.addEventListener("click", () => srIn.click());
-["dragover", "dragenter"].forEach((ev) => srDrop.addEventListener(ev, (e) => { e.preventDefault(); srDrop.classList.add("over"); }));
-["dragleave", "drop"].forEach((ev) => srDrop.addEventListener(ev, (e) => { e.preventDefault(); srDrop.classList.remove("over"); }));
-srDrop.addEventListener("drop", (e) => srUpload(e.dataTransfer.files[0]));
-srIn.addEventListener("change", () => { srUpload(srIn.files[0]); srIn.value = ""; });
-async function srUpload(f) {
-  if (!f) return;
-  const row = progressRow($("#srUp"), f.name + " — uploading…");
-  try {
-    const url = await uploadFile(f, "showreel", row.bar);
-    data.showreel = { url, title: "Showreel" }; row.label.textContent = f.name + " — done ✓";
-    renderShowreel(); await save(true); setTimeout(() => row.el.remove(), 3000);
-  } catch (e) { row.label.textContent = "Failed: " + e.message; row.label.style.color = "var(--red)"; }
-}
-$("#srSet").addEventListener("click", () => { const u = $("#srLink").value.trim(); if (!u) return; data.showreel = { url: u, title: "Showreel" }; $("#srLink").value = ""; renderShowreel(); setDirty(true); });
-$("#srClear").addEventListener("click", () => { data.showreel = null; renderShowreel(); setDirty(true); });
+/* ---------- SHOWREEL ---------- */
+function renderShowreel(){ const s=data.showreel; $("#srCurrent").innerHTML = s?"Current: <b></b>":"No showreel set — the site shows its default."; if(s)$("#srCurrent b").textContent=(s.url||"").split("/").pop(); }
+bindDrop("srDrop","srIn",(files)=>srUpload(files[0]));
+async function srUpload(f){ if(!f) return; const row=progressRow($("#srUp"),f.name+" — uploading…");
+  try{ const url=await uploadFile(f,"showreel",row.bar); data.showreel={url,title:"Showreel"}; row.label.textContent=f.name+" — done ✓"; renderShowreel(); await save(true); setTimeout(()=>row.el.remove(),3000); }
+  catch(e){ row.label.textContent="Failed: "+e.message; row.label.style.color="var(--red)"; } }
+$("#srSet").addEventListener("click",()=>{ const u=$("#srLink").value.trim(); if(!u) return; data.showreel={url:u,title:"Showreel"}; $("#srLink").value=""; renderShowreel(); setDirty(true); });
+$("#srClear").addEventListener("click",()=>{ data.showreel=null; renderShowreel(); setDirty(true); });
 
-/* ---------- settings ---------- */
-function renderSettings() {
-  const s = data.settings, so = s.socials || {};
-  $("#sEmail").value = s.email || ""; $("#sYoutube").value = so.youtube || ""; $("#sInstagram").value = so.instagram || "";
-  $("#sLinkedin").value = so.linkedin || ""; $("#sX").value = so.x || "";
-  $("#photoPrev").innerHTML = s.aboutPhoto ? '<img src="' + s.aboutPhoto + '" style="max-width:160px;border-radius:12px">' : '<span class="up">No photo set.</span>';
+/* ---------- list editor (generic) ---------- */
+function listEditor(hostId, arr, fields, labelFn){
+  const host=$("#"+hostId); host.innerHTML="";
+  arr.forEach((item,idx)=>{
+    const box=document.createElement("div"); box.className="litem";
+    const head=document.createElement("div"); head.className="lhead";
+    const t=document.createElement("span"); t.className="t"; t.textContent=labelFn?labelFn(item,idx):("#"+(idx+1));
+    const up=document.createElement("button"); up.className="btn ghost sm"; up.textContent="↑"; up.onclick=()=>{ if(idx>0){ arr.splice(idx-1,0,arr.splice(idx,1)[0]); setDirty(true); render(hostId,arr,fields,labelFn); } };
+    const dn=document.createElement("button"); dn.className="btn ghost sm"; dn.textContent="↓"; dn.onclick=()=>{ if(idx<arr.length-1){ arr.splice(idx+1,0,arr.splice(idx,1)[0]); setDirty(true); render(hostId,arr,fields,labelFn); } };
+    const rm=document.createElement("button"); rm.className="btn ghost sm danger"; rm.textContent="Delete"; rm.onclick=()=>{ arr.splice(idx,1); setDirty(true); render(hostId,arr,fields,labelFn); };
+    head.append(t,up,dn,rm); box.appendChild(head);
+    fields.forEach((f)=>{
+      if(f.type==="icon"){ const w=document.createElement("div"); const l=document.createElement("label"); l.textContent=f.label; w.appendChild(l);
+        const sel=document.createElement("select"); ICON_KEYS.forEach((k)=>{ const o=document.createElement("option"); o.value=k; o.textContent=k; sel.appendChild(o); }); sel.value=item[f.k]||ICON_KEYS[0];
+        sel.addEventListener("change",()=>{item[f.k]=sel.value;setDirty(true);}); w.appendChild(sel); box.appendChild(w); }
+      else box.appendChild(field(f.label,item,f.k,{ta:f.ta,ph:f.ph}));
+    });
+    host.appendChild(box);
+  });
+  if(!arr.length) host.innerHTML='<div class="up">None yet.</div>';
 }
-function collectSettings() {
-  const s = data.settings; s.email = $("#sEmail").value.trim();
-  s.socials = { youtube: $("#sYoutube").value.trim(), instagram: $("#sInstagram").value.trim(), linkedin: $("#sLinkedin").value.trim(), x: $("#sX").value.trim() };
+function render(hostId,arr,fields,labelFn){ listEditor(hostId,arr,fields,labelFn); }
+
+/* ---------- section renderers ---------- */
+function renderHero(){ renderSpec("heroForm", data.hero, [
+  {k:"badge",label:"Badge"},{k:"title",label:"Main heading",hint:"Put the highlighted words in { } — e.g. Videos that make people {stop scrolling.}"},
+  {k:"sub",label:"Subtext",ta:true},{k:"btnPrimary",label:"Primary button"},{k:"btnGhost",label:"Secondary button"} ]); }
+function renderServices(){ renderSpec("servicesHead", data.services, [{k:"eyebrow",label:"Eyebrow"},{k:"heading",label:"Heading"},{k:"sub",label:"Subtext",ta:true}]);
+  listEditor("servicesList", data.services.items, [{k:"icon",label:"Icon",type:"icon"},{k:"title",label:"Title"},{k:"desc",label:"Description",ta:true}], (it)=>it.title||"Service"); }
+function renderAbout(){ renderSpec("aboutHead", data.about, [{k:"eyebrow",label:"Eyebrow"},{k:"heading",label:"Heading"},{k:"lede",label:"Lead line",ta:true,hint:"Put the highlighted words in { } — e.g. I'm {Your Name}, a video editor…"}]);
+  stringList("aboutBodyList", data.about.body, "Paragraph", renderAbout);
+  listEditor("statsList", data.about.stats, [{k:"n",label:"Number"},{k:"l",label:"Label"}], (it)=>it.n||"Stat");
+  renderPhoto(); }
+
+/* editor for an array of plain strings, bound in place */
+function stringList(hostId, arr, label, rerender){
+  const host=$("#"+hostId); host.innerHTML="";
+  arr.forEach((val,idx)=>{
+    const box=document.createElement("div"); box.className="litem";
+    const head=document.createElement("div"); head.className="lhead";
+    const t=document.createElement("span"); t.className="t"; t.textContent=label+" "+(idx+1);
+    const up=document.createElement("button"); up.className="btn ghost sm"; up.textContent="↑"; up.onclick=()=>{ if(idx>0){ arr.splice(idx-1,0,arr.splice(idx,1)[0]); setDirty(true); rerender(); } };
+    const dn=document.createElement("button"); dn.className="btn ghost sm"; dn.textContent="↓"; dn.onclick=()=>{ if(idx<arr.length-1){ arr.splice(idx+1,0,arr.splice(idx,1)[0]); setDirty(true); rerender(); } };
+    const rm=document.createElement("button"); rm.className="btn ghost sm danger"; rm.textContent="Delete"; rm.onclick=()=>{ arr.splice(idx,1); setDirty(true); rerender(); };
+    head.append(t,up,dn,rm); box.appendChild(head);
+    const ta=document.createElement("textarea"); ta.rows=2; ta.value=val; ta.addEventListener("input",()=>{ arr[idx]=ta.value; setDirty(true); }); box.appendChild(ta);
+    host.appendChild(box);
+  });
+  if(!arr.length) host.innerHTML='<div class="up">None yet.</div>';
 }
-["#sEmail", "#sYoutube", "#sInstagram", "#sLinkedin", "#sX"].forEach((s) => $(s).addEventListener("input", () => setDirty(true)));
-const phDrop = $("#phDrop"), phIn = $("#phIn");
-phDrop.addEventListener("click", () => phIn.click());
-["dragover", "dragenter"].forEach((ev) => phDrop.addEventListener(ev, (e) => { e.preventDefault(); phDrop.classList.add("over"); }));
-["dragleave", "drop"].forEach((ev) => phDrop.addEventListener(ev, (e) => { e.preventDefault(); phDrop.classList.remove("over"); }));
-phDrop.addEventListener("drop", (e) => phUpload(e.dataTransfer.files[0]));
-phIn.addEventListener("change", () => { phUpload(phIn.files[0]); phIn.value = ""; });
-async function phUpload(f) {
-  if (!f) return;
-  const row = progressRow($("#phUp"), f.name + " — uploading…");
-  try { data.settings.aboutPhoto = await uploadFile(f, "images", row.bar); row.label.textContent = "Done ✓"; renderSettings(); await save(true); setTimeout(() => row.el.remove(), 3000); }
-  catch (e) { row.label.textContent = "Failed: " + e.message; row.label.style.color = "var(--red)"; }
-}
-$("#phClear").addEventListener("click", () => { data.settings.aboutPhoto = ""; renderSettings(); setDirty(true); });
+function renderProcess(){ renderSpec("processForm", data.process, [
+  {k:"eyebrow",label:"Eyebrow"},{k:"heading",label:"Heading"},{k:"sub",label:"Subtext",ta:true},
+  {k:"s0t",label:"Step 1 title"},{k:"s0d",label:"Step 1 text",ta:true},{k:"s1t",label:"Step 2 title"},{k:"s1d",label:"Step 2 text",ta:true},
+  {k:"s2t",label:"Step 3 title"},{k:"s2d",label:"Step 3 text",ta:true},{k:"s3t",label:"Step 4 title"},{k:"s3d",label:"Step 4 text",ta:true} ]); }
+function renderReviews(){ renderSpec("reviewsHead", data.reviews, [{k:"eyebrow",label:"Eyebrow"},{k:"heading",label:"Heading"},{k:"score",label:"Rating score"},{k:"scoreText",label:"Rating caption"}]);
+  renderSpec("trustHead", data.trust, [{k:"label",label:"Trusted-by label"}]); renderBrands();
+  listEditor("reviewsList", data.reviews.items, [{k:"quote",label:"Quote",ta:true},{k:"name",label:"Name"},{k:"role",label:"Role / company"},{k:"initials",label:"Avatar initials",ph:"auto"}], (it)=>it.name||"Review"); }
+function renderContact(){ renderSpec("contactForm", data.contact, [{k:"eyebrow",label:"Eyebrow"},{k:"heading",label:"Heading",hint:"Highlighted words in { }"},{k:"sub",label:"Subtext",ta:true}]);
+  const st=data.settings; const host=$("#settingsForm"); host.innerHTML="";
+  host.appendChild(field("Email", st, "email", {ph:"you@example.com"}));
+  host.appendChild(field("YouTube link", st.socials, "youtube"));
+  host.appendChild(field("Instagram link", st.socials, "instagram"));
+  host.appendChild(field("LinkedIn link", st.socials, "linkedin"));
+  host.appendChild(field("X (Twitter) link", st.socials, "x"));
+  renderSpec("brandForm", data.brand, [{k:"name",label:"Logo name (nav)"},{k:"dot",label:"Logo badge letter"},{k:"cta",label:"Nav button label"},{k:"full",label:"Footer full name"},{k:"copyright",label:"Footer copyright line"}]); }
+
+function renderPhoto(){ $("#photoPrev").innerHTML = data.settings.aboutPhoto ? '<img src="'+data.settings.aboutPhoto+'" style="max-width:160px;border-radius:12px">' : '<span class="up">No photo set.</span>'; }
+
+/* brands pill editor */
+function renderBrands(){ const host=$("#brandsList"); host.innerHTML=""; data.trust.brands.forEach((b,i)=>{
+  const pill=document.createElement("span"); pill.className="pill"; const inp=document.createElement("input"); inp.type="text"; inp.value=b;
+  inp.addEventListener("input",()=>{data.trust.brands[i]=inp.value;setDirty(true);});
+  const x=document.createElement("button"); x.textContent="×"; x.onclick=()=>{data.trust.brands.splice(i,1);setDirty(true);renderBrands();};
+  pill.append(inp,x); host.appendChild(pill); }); }
+$("#brandAdd").addEventListener("click",()=>{ const v=$("#brandNew").value.trim(); if(!v) return; data.trust.brands.push(v); $("#brandNew").value=""; setDirty(true); renderBrands(); });
+
+/* add buttons */
+$("#svcAdd").addEventListener("click",()=>{ data.services.items.push({icon:"sparkles",title:"New service",desc:""}); setDirty(true); renderServices(); });
+$("#abAdd").addEventListener("click",()=>{ data.about.body.push(""); setDirty(true); renderAbout(); });
+$("#stAdd").addEventListener("click",()=>{ data.about.stats.push({n:"",l:""}); setDirty(true); renderAbout(); });
+$("#rvAdd").addEventListener("click",()=>{ data.reviews.items.push({quote:"",name:"",role:"",initials:""}); setDirty(true); renderReviews(); });
+
+/* photo upload */
+bindDrop("phDrop","phIn",(files)=>phUpload(files[0]));
+async function phUpload(f){ if(!f) return; const row=progressRow($("#phUp"),f.name+" — uploading…");
+  try{ data.settings.aboutPhoto=await uploadFile(f,"images",row.bar); row.label.textContent="Done ✓"; renderPhoto(); await save(true); setTimeout(()=>row.el.remove(),3000); }
+  catch(e){ row.label.textContent="Failed: "+e.message; row.label.style.color="var(--red)"; } }
+$("#phClear").addEventListener("click",()=>{ data.settings.aboutPhoto=""; renderPhoto(); setDirty(true); });
+
+function renderAll(){ renderVideos(); renderShowreel(); renderHero(); renderServices(); renderAbout(); renderProcess(); renderReviews(); renderContact(); }
 </script>
 </body>
 </html>
