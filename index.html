@@ -522,7 +522,7 @@
       <div class="filters reveal" id="filters"></div>
       <div class="video-grid reveal" id="landscapeGrid"></div>
 
-      <div class="reels-head reveal">
+      <div class="reels-head reveal" id="reelsHead">
         <h3>Reels</h3>
         <p>Vertical edits built for Shorts, Reels &amp; TikTok.</p>
       </div>
@@ -817,27 +817,60 @@
     return card;
   }
 
-  var landscapeVideos = VIDEOS.filter(function (v) { return v.orient !== "portrait"; });
-  var reelVideos = VIDEOS.filter(function (v) { return v.orient === "portrait"; });
-  landscapeVideos.forEach(function (v) { landscapeGrid.appendChild(makeCard(v)); });
-  reelVideos.forEach(function (v) { reelsRow.appendChild(makeCard(v)); });
+  /* Renders the Work section from a list of videos (landscape grid + reels row + filter tabs) */
+  function renderWork(list) {
+    landscapeGrid.innerHTML = ""; reelsRow.innerHTML = ""; filtersEl.innerHTML = "";
+    var landscapeVideos = list.filter(function (v) { return v.orient !== "portrait"; });
+    var reelVideos = list.filter(function (v) { return v.orient === "portrait"; });
+    landscapeVideos.forEach(function (v) { landscapeGrid.appendChild(makeCard(v)); });
+    reelVideos.forEach(function (v) { reelsRow.appendChild(makeCard(v)); });
 
-  /* ---- Filter tabs (built from landscape categories; filter the landscape grid only) ---- */
-  var cats = ["All"];
-  landscapeVideos.forEach(function (v) { if (cats.indexOf(v.category) === -1) cats.push(v.category); });
-  cats.forEach(function (c, i) {
-    var b = document.createElement("button");
-    b.className = "filter-tab" + (i === 0 ? " active" : "");
-    b.textContent = c;
-    b.addEventListener("click", function () {
-      document.querySelectorAll(".filter-tab").forEach(function (t) { t.classList.remove("active"); });
-      b.classList.add("active");
-      landscapeGrid.querySelectorAll(".vcard").forEach(function (card) {
-        card.hidden = !(c === "All" || card.getAttribute("data-category") === c);
+    // hide empty blocks
+    filtersEl.hidden = landscapeVideos.length === 0;
+    landscapeGrid.hidden = landscapeVideos.length === 0;
+    document.getElementById("reelsHead").hidden = reelVideos.length === 0;
+    reelsRow.hidden = reelVideos.length === 0;
+
+    /* Filter tabs (built from landscape categories; filter the landscape grid only) */
+    var cats = ["All"];
+    landscapeVideos.forEach(function (v) { if (cats.indexOf(v.category) === -1) cats.push(v.category); });
+    if (cats.length === 2) cats = []; // a single category needs no tabs
+    cats.forEach(function (c, i) {
+      var b = document.createElement("button");
+      b.className = "filter-tab" + (i === 0 ? " active" : "");
+      b.textContent = c;
+      b.addEventListener("click", function () {
+        document.querySelectorAll(".filter-tab").forEach(function (t) { t.classList.remove("active"); });
+        b.classList.add("active");
+        landscapeGrid.querySelectorAll(".vcard").forEach(function (card) {
+          card.hidden = !(c === "All" || card.getAttribute("data-category") === c);
+        });
       });
+      filtersEl.appendChild(b);
     });
-    filtersEl.appendChild(b);
-  });
+  }
+
+  /* Uploaded videos are discovered automatically: build-videos.js scans the videos/ folder at
+     deploy time and writes videos.json. If there is no manifest (or no uploads), the sample list above is used. */
+  function applyShowreelPoster() {
+    var poster = document.querySelector(".reel-poster");
+    if (poster && typeof SHOWREEL === "object" && isMp4(SHOWREEL.url) && !SHOWREEL.thumbImg && !poster.querySelector(".reel-vid")) {
+      var vid = document.createElement("video");
+      vid.className = "reel-vid"; vid.src = SHOWREEL.url + "#t=0.6";
+      vid.muted = true; vid.playsInline = true; vid.preload = "metadata"; vid.setAttribute("aria-hidden", "true");
+      poster.appendChild(vid);
+    }
+  }
+  (function loadWork() {
+    function done(list) { renderWork(list); applyShowreelPoster(); }
+    fetch("videos.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) {
+        if (m && m.showreel) SHOWREEL = { title: "Showreel", category: "Showreel", url: m.showreel, orient: "landscape" };
+        done(m && m.videos && m.videos.length ? m.videos : VIDEOS);
+      })
+      .catch(function () { done(VIDEOS); });
+  })();
 
   /* ---- Lightbox ---- */
   var lb = document.getElementById("lightbox");
@@ -878,17 +911,6 @@
   document.getElementById("lbClose").addEventListener("click", closeLightbox);
   lb.addEventListener("click", function (e) { if (e.target === lb) closeLightbox(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
-
-  /* ---- Showreel poster from an uploaded .mp4 ---- */
-  (function () {
-    var poster = document.querySelector(".reel-poster");
-    if (poster && typeof SHOWREEL === "object" && isMp4(SHOWREEL.url) && !SHOWREEL.thumbImg) {
-      var vid = document.createElement("video");
-      vid.className = "reel-vid"; vid.src = SHOWREEL.url + "#t=0.6";
-      vid.muted = true; vid.playsInline = true; vid.preload = "metadata"; vid.setAttribute("aria-hidden", "true");
-      poster.appendChild(vid);
-    }
-  })();
 
   /* ---- Showreel opens lightbox too ---- */
   document.querySelector(".reel-frame").addEventListener("click", function () { openLightbox(SHOWREEL); });
