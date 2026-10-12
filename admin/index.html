@@ -8,67 +8,96 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0a18;--panel:#13122a;--line:rgba(255,255,255,.09);--text:#f4f4ff;--mute:#9a9ab8;--ind:#6366F1;--ind2:#818CF8;--red:#f87171;--green:#4ade80}
+:root{--bg:#0a0a16;--bg2:#0d0c20;--panel:#14132b;--panel2:#191836;--line:rgba(255,255,255,.08);--line2:rgba(129,140,248,.28);--text:#f4f4ff;--mute:#9a9ab8;--faint:#6f6f93;--ind:#6366F1;--ind2:#818CF8;--ind3:#4F46E5;--red:#f87171;--green:#4ade80;--grad:linear-gradient(120deg,#818CF8,#6366F1)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Geist,system-ui,sans-serif;min-height:100vh}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Geist,system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 500px at 15% -10%,rgba(99,102,241,.16),transparent 60%),radial-gradient(800px 500px at 100% 0%,rgba(129,140,248,.10),transparent 55%)}
 button,input,select,textarea{font:inherit;color:inherit}
 .hidden{display:none!important}
-.login{min-height:100vh;display:grid;place-items:center;padding:20px}
-.box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}
-h1{margin:0 0 6px;font-size:22px}h2{margin:0 0 4px;font-size:18px}
+h1{margin:0 0 6px;font-size:23px;letter-spacing:-.02em}
+h2{margin:0 0 4px;font-size:17px;letter-spacing:-.01em}
+h2 .ico{margin-right:8px}
 p.sub{color:var(--mute);margin:0 0 18px;font-size:14px}
-input[type=text],input[type=password],input[type=url],input[type=email],select,textarea{width:100%;background:#0d0c20;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;resize:vertical}
-input:focus,select:focus,textarea:focus{border-color:var(--ind2)}
-label{display:block;font-size:12px;color:var(--mute);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.06em}
-.hint{font-size:12px;color:var(--mute);margin-top:4px;text-transform:none;letter-spacing:0}
-.btn{background:var(--ind);border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer}
-.btn:hover{background:#4F46E5}.btn:disabled{opacity:.5;cursor:default}
-.btn.ghost{background:transparent;border:1px solid var(--line)}.btn.ghost:hover{background:rgba(255,255,255,.05)}
-.btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
-.btn.danger{color:var(--red)}
+.cardsub{color:var(--mute);margin:-2px 0 16px;font-size:13.5px}
+
+/* login */
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.box{width:100%;max-width:390px;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:32px;box-shadow:0 30px 80px -30px rgba(99,102,241,.5)}
+.box .mark{width:46px;height:46px;border-radius:13px;background:var(--grad);display:grid;place-items:center;font-weight:800;font-size:20px;margin-bottom:16px;box-shadow:0 10px 26px -10px rgba(99,102,241,.8)}
+
+/* inputs */
+input[type=text],input[type=password],input[type=url],input[type=email],select,textarea{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;resize:vertical;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--ind2);box-shadow:0 0 0 3px rgba(99,102,241,.16)}
+label{display:block;font-size:11.5px;color:var(--mute);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.07em;font-weight:500}
+.hint{font-size:12px;color:var(--faint);margin-top:5px;text-transform:none;letter-spacing:0;line-height:1.45}
+
+/* buttons */
+.btn{background:var(--ind);border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer;transition:background .15s,transform .1s,box-shadow .2s;box-shadow:0 8px 22px -12px rgba(99,102,241,.7)}
+.btn:hover{background:var(--ind3)}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.5;cursor:default;box-shadow:none}
+.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none}.btn.ghost:hover{background:rgba(255,255,255,.05);border-color:var(--line2)}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:8px}
+.btn.danger{color:var(--red)}.btn.danger:hover{background:rgba(248,113,113,.12);border-color:rgba(248,113,113,.4)}
 .err{color:var(--red);font-size:13px;min-height:18px;margin-top:10px}
-header{position:sticky;top:0;z-index:5;background:rgba(11,10,24,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.bar{max-width:1000px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* header + tabs */
+header{position:sticky;top:0;z-index:5;background:rgba(10,10,22,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar{max-width:1040px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bar .logo{display:flex;align-items:center;gap:9px;font-weight:700}
+.bar .logo .m{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;font-weight:800;font-size:14px}
 .bar .grow{flex:1}
-.tabs{display:flex;gap:4px;max-width:1000px;margin:0 auto;padding:0 16px 10px;overflow-x:auto}
-.tab{background:none;border:0;padding:8px 14px;border-radius:8px;color:var(--mute);cursor:pointer;white-space:nowrap}
-.tab.on{background:rgba(99,102,241,.18);color:#fff}
-main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+.tabs{display:flex;gap:4px;max-width:1040px;margin:0 auto;padding:0 12px 10px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;padding:9px 15px;border-radius:9px;color:var(--mute);cursor:pointer;white-space:nowrap;font-weight:500;transition:background .15s,color .15s}
+.tab:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.tab.on{background:var(--grad);color:#fff;box-shadow:0 8px 20px -12px rgba(99,102,241,.9)}
+
+main{max-width:1040px;margin:0 auto;padding:22px 16px 100px}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
 .row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:600px){.grid2{grid-template-columns:1fr}}
-.drop{border:2px dashed rgba(129,140,248,.45);border-radius:12px;padding:26px;text-align:center;color:var(--mute);cursor:pointer;transition:.2s}
-.drop.over,.drop:hover{background:rgba(99,102,241,.1);color:#fff}
-.vitem{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
-.vitem:first-child{border-top:0}
-.thumb{width:120px;aspect-ratio:16/9;border-radius:8px;background:#000 center/cover;overflow:hidden;position:relative}
-.thumb.p{width:68px;aspect-ratio:9/16;justify-self:center}
+
+/* dropzone */
+.drop{border:1.5px dashed var(--line2);border-radius:14px;padding:30px 20px;text-align:center;color:var(--mute);cursor:pointer;transition:.2s;background:rgba(99,102,241,.04)}
+.drop.over,.drop:hover{background:rgba(99,102,241,.12);color:#fff;border-color:var(--ind2)}
+.drop b{color:var(--ind2)}
+
+/* video rows */
+.vitem{display:grid;grid-template-columns:132px 1fr auto;gap:16px;align-items:start;padding:16px;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;background:var(--bg2)}
+.thumb{width:132px;aspect-ratio:16/9;border-radius:10px;background:#000 center/cover;overflow:hidden;position:relative;border:1px solid var(--line)}
+.thumb.p{width:80px;aspect-ratio:9/16;justify-self:center}
 .thumb video,.thumb img{width:100%;height:100%;object-fit:cover}
-.thumb .lnk{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;color:var(--mute)}
-.fields{display:grid;grid-template-columns:1fr 1fr 130px;gap:8px}
-.fields input,.fields select{padding:8px 10px;font-size:14px}
-.acts{display:flex;flex-direction:column;gap:6px}
+.thumb .lnk{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+.fields{display:grid;grid-template-columns:1fr 1fr 140px;gap:9px}
+.fields .urlfield{grid-column:1/-1;font-family:Geist Mono,ui-monospace,monospace;font-size:12.5px}
+.fields input,.fields select{padding:9px 11px;font-size:14px}
+.acts{display:flex;flex-direction:column;gap:6px;align-items:stretch}
 .prog{height:6px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-top:6px}
-.prog i{display:block;height:100%;background:var(--ind2);width:0}
-.up{font-size:13px;color:var(--mute);padding:6px 0}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1d1c3a;border:1px solid var(--line);padding:10px 16px;border-radius:10px;z-index:20;box-shadow:0 8px 30px #0008}
-.dirty{color:#fbbf24;font-size:13px}
-.litem{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;position:relative}
-.litem .lhead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.litem .lhead .t{font-size:13px;color:var(--mute);flex:1}
-.pill{display:inline-flex;align-items:center;gap:8px;background:#0d0c20;border:1px solid var(--line);border-radius:100px;padding:6px 8px 6px 14px;margin:0 8px 8px 0}
-.pill input{width:110px;background:none;border:0;padding:0}
-.pill button{background:none;border:0;color:var(--red);cursor:pointer;font-size:16px;line-height:1}
-@media(max-width:700px){.vitem{grid-template-columns:90px 1fr}.vitem .acts{grid-column:1/-1;flex-direction:row}.fields{grid-template-columns:1fr}.thumb{width:90px}}
+.prog i{display:block;height:100%;background:var(--grad);width:0;transition:width .2s}
+.up{font-size:13px;color:var(--mute);padding:7px 0;display:flex;flex-direction:column;gap:2px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--line2);padding:12px 20px;border-radius:12px;z-index:30;box-shadow:0 14px 40px rgba(0,0,0,.5);font-weight:500}
+.dirty{color:#fbbf24;font-size:13px;font-weight:500}
+.addbar{display:flex;justify-content:flex-end;margin-top:4px}
+
+/* list editor items */
+.litem{border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;position:relative;background:var(--bg2)}
+.litem .lhead{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.litem .lhead .t{font-size:13px;color:var(--ind2);flex:1;font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--line);border-radius:100px;padding:7px 10px 7px 15px;margin:0 8px 8px 0}
+.pill input{width:120px;background:none;border:0;padding:0}
+.pill input:focus{box-shadow:none}
+.pill button{background:none;border:0;color:var(--red);cursor:pointer;font-size:17px;line-height:1}
+.empty{text-align:center;color:var(--faint);padding:24px;border:1px dashed var(--line);border-radius:12px;font-size:14px}
+@media(max-width:700px){.vitem{grid-template-columns:100px 1fr}.vitem .acts{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}.fields{grid-template-columns:1fr 1fr}.thumb{width:100px}}
 </style>
 </head>
 <body>
 
 <div class="login" id="loginView">
   <form class="box" id="loginForm">
+    <div class="mark">S</div>
     <h1>Admin login</h1>
-    <p class="sub">Jahedul Islam Sahin — portfolio</p>
+    <p class="sub">Jahedul Islam Sahin — portfolio manager</p>
     <label for="pw">Password</label>
     <input type="password" id="pw" autocomplete="current-password" required autofocus>
     <div class="err" id="loginErr"></div>
@@ -79,7 +108,7 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
 <div id="appView" class="hidden">
   <header>
     <div class="bar">
-      <strong>Portfolio Admin</strong><span class="dirty hidden" id="dirty">● unsaved changes</span>
+      <span class="logo"><span class="m">S</span> Portfolio Admin</span><span class="dirty hidden" id="dirty">● unsaved changes</span>
       <span class="grow"></span>
       <a class="btn ghost sm" href="/" target="_blank" style="text-decoration:none">View site ↗</a>
       <button class="btn sm" id="saveBtn">Save &amp; publish</button>
@@ -99,15 +128,15 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
           <div id="catWrap"><label>Category (filter tab)</label>
             <input type="text" id="upCat" list="catList" placeholder="e.g. Product Videos" value="Product Videos"><datalist id="catList"></datalist></div>
         </div>
-        <div class="drop" id="drop" style="margin-top:14px">Drop .mp4 files here or <u>click to browse</u><input type="file" id="fileIn" accept="video/mp4,video/webm,video/quicktime" multiple hidden></div>
+        <div class="drop" id="drop" style="margin-top:14px">Drop .mp4 files here or <b>click to browse</b><input type="file" id="fileIn" accept="video/mp4,video/webm,video/quicktime" multiple hidden></div>
         <div id="uploads"></div>
         <div class="row" style="margin-top:14px;align-items:end">
           <div style="flex:3"><label>…or add a YouTube / Vimeo link</label><input type="url" id="linkIn" placeholder="https://www.youtube.com/watch?v=…"></div>
           <div style="flex:0 0 auto;min-width:0"><button class="btn ghost" id="linkAdd">Add link</button></div>
         </div>
       </div>
-      <div class="card"><h2>Landscape videos</h2><p class="sub">Shown in the main grid with filter tabs.</p><div id="listL"></div></div>
-      <div class="card"><h2>Reels</h2><p class="sub">Vertical 9:16 row.</p><div id="listP"></div></div>
+      <div class="card"><h2>Landscape videos</h2><p class="cardsub">These are the cards in “Recent edits worth watching”. Edit the title/category, paste a link, or use <b>Replace</b> to upload your own file. Delete the samples once you add yours.</p><div id="listL"></div></div>
+      <div class="card"><h2>Reels</h2><p class="cardsub">Vertical 9:16 cards. Same controls — edit, replace, or delete.</p><div id="listP"></div></div>
     </section>
 
     <section id="tab-showreel" class="hidden">
@@ -115,7 +144,7 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
         <h2>Hero showreel</h2>
         <p class="sub">The big video in the hero section.</p>
         <div id="srCurrent" class="up"></div>
-        <div class="drop" id="srDrop">Drop your showreel .mp4 or <u>click to browse</u><input type="file" id="srIn" accept="video/mp4,video/webm,video/quicktime" hidden></div>
+        <div class="drop" id="srDrop">Drop your showreel .mp4 or <b>click to browse</b><input type="file" id="srIn" accept="video/mp4,video/webm,video/quicktime" hidden></div>
         <div id="srUp"></div>
         <label>…or a YouTube / Vimeo link</label>
         <div class="row"><input type="url" id="srLink" placeholder="https://…" style="flex:3"><button class="btn ghost" id="srSet" style="flex:0 0 auto;min-width:0">Use link</button></div>
@@ -133,7 +162,7 @@ main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
       <div class="card"><h2>About paragraphs</h2><div id="aboutBodyList"></div><button class="btn ghost sm" id="abAdd">+ Add paragraph</button></div>
       <div class="card"><h2>Stats</h2><div id="statsList"></div><button class="btn ghost sm" id="stAdd">+ Add stat</button></div>
       <div class="card"><h2>About photo</h2><p class="sub">Your portrait in the About section.</p><div id="photoPrev" style="margin-bottom:10px"></div>
-        <div class="drop" id="phDrop">Drop a photo (jpg / png / webp) or <u>click to browse</u><input type="file" id="phIn" accept="image/jpeg,image/png,image/webp" hidden></div>
+        <div class="drop" id="phDrop">Drop a photo (jpg / png / webp) or <b>click to browse</b><input type="file" id="phIn" accept="image/jpeg,image/png,image/webp" hidden></div>
         <div id="phUp"></div><div style="margin-top:12px"><button class="btn ghost sm danger" id="phClear">Remove photo</button></div>
       </div>
     </section>
@@ -164,7 +193,18 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 const ICON_KEYS = ["film", "reel", "target", "sparkles", "search", "pen", "scissors", "rocket"];
 
 const DEFAULTS = {
-  videos: [], showreel: null,
+  videos: [
+    { title: "Lumio — Product Launch", category: "Product Videos", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape" },
+    { title: "Northpeak Promo Reel", category: "Reels", url: "https://vimeo.com/76979871", orient: "portrait" },
+    { title: "Vantage9 Meta Ad", category: "Ads", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape" },
+    { title: "Qubit Explainer", category: "Explainers", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape" },
+    { title: "Orbital — App Teaser", category: "Reels", url: "https://vimeo.com/76979871", orient: "portrait" },
+    { title: "Finch Brand Film", category: "Product Videos", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape" },
+    { title: "Cedarline TikTok Hook", category: "Reels", url: "https://vimeo.com/76979871", orient: "portrait" },
+    { title: "Nova Labs Launch Ad", category: "Ads", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape" },
+    { title: "Qubit Feature Demo", category: "Product Videos", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", orient: "landscape" },
+  ],
+  showreel: null,
   settings: { email: "hello@jahedulsahin.com", aboutPhoto: "", socials: { youtube: "", instagram: "", linkedin: "", x: "" } },
   brand: { dot: "S", name: "Sahin", cta: "Let's talk", full: "Jahedul Islam Sahin", copyright: "© 2026 Jahedul Islam Sahin — Video Editor" },
   hero: { badge: "Available for new projects", title: "Videos that make people {stop scrolling.}", sub: "I'm Jahedul Islam Sahin — a video editor crafting product videos, short-form reels, and ad creatives that turn attention into action.", btnPrimary: "▶ Watch showreel", btnGhost: "See the work" },
@@ -219,7 +259,7 @@ function mergeText(def, saved){
 function mergeContent(c){
   const d=clone(DEFAULTS);
   c=c||{};
-  d.videos=(Array.isArray(c.videos)?c.videos:[]).map((v)=>Object.assign({id:uid()},v));
+  const sv=Array.isArray(c.videos)?c.videos:[]; d.videos=(sv.length?sv:d.videos).map((v)=>Object.assign({id:uid()},v));
   d.showreel=c.showreel||null;
   if(c.settings){ d.settings.email=c.settings.email||d.settings.email; d.settings.aboutPhoto=c.settings.aboutPhoto||""; d.settings.socials=Object.assign(d.settings.socials, c.settings.socials||{}); }
   ["brand","hero","services","work","about","process","trust","reviews","contact"].forEach((k)=>{ if(c[k]) mergeText(d[k], c[k]); });
@@ -308,14 +348,22 @@ function vitemEl(v){ const el=document.createElement("div"); el.className="vitem
   const ti=document.createElement("input"); ti.type="text"; ti.value=v.title; ti.placeholder="Title";
   const ca=document.createElement("input"); ca.type="text"; ca.value=v.category; ca.placeholder="Category"; ca.setAttribute("list","catList"); if(v.orient==="portrait") ca.disabled=true;
   const or=document.createElement("select"); or.innerHTML='<option value="landscape">Landscape</option><option value="portrait">Reel 9:16</option>'; or.value=v.orient;
+  const url=document.createElement("input"); url.type="text"; url.value=v.url||""; url.placeholder="Video link (YouTube / Vimeo / .mp4)"; url.className="urlfield";
   ti.addEventListener("input",()=>{v.title=ti.value;setDirty(true);});
   ca.addEventListener("input",()=>{v.category=ca.value;setDirty(true);});
   or.addEventListener("change",()=>{v.orient=or.value; v.category=or.value==="portrait"?"Reels":(v.category==="Reels"?"Videos":v.category); setDirty(true); renderVideos();});
-  f.append(ti,ca,or); el.appendChild(f);
+  url.addEventListener("input",()=>{v.url=url.value.trim();setDirty(true);});
+  f.append(ti,ca,or,url); el.appendChild(f);
   const a=document.createElement("div"); a.className="acts";
   const mk=(txt,fn,cls)=>{const b=document.createElement("button"); b.className="btn ghost sm "+(cls||""); b.textContent=txt; b.addEventListener("click",fn); return b;};
   const row=document.createElement("div"); row.style.cssText="display:flex;gap:6px"; row.append(mk("↑",()=>moveV(v,-1)),mk("↓",()=>moveV(v,1)));
-  a.append(row, mk("Delete",()=>delV(v),"danger")); el.appendChild(a); return el; }
+  // Replace this video's file with an upload
+  const fin=document.createElement("input"); fin.type="file"; fin.accept="video/mp4,video/webm,video/quicktime"; fin.hidden=true;
+  fin.addEventListener("change",async()=>{ const file=fin.files[0]; fin.value=""; if(!file) return;
+    const rb=mk("… uploading",()=>{}); rb.disabled=true; a.appendChild(rb);
+    try{ const bar={style:{}}; v.url=await uploadFile(file,"videos",bar); setDirty(true); renderVideos(); await save(true); }
+    catch(e){ toast("Upload failed: "+e.message,5000); rb.remove(); } });
+  a.append(row, mk("Replace",()=>fin.click()), mk("Delete",()=>delV(v),"danger"), fin); el.appendChild(a); return el; }
 function moveV(v,d){ const same=data.videos.filter((x)=>(x.orient==="portrait")===(v.orient==="portrait")); const i=same.indexOf(v), j=i+d; if(j<0||j>=same.length) return;
   const a=data.videos.indexOf(v), b=data.videos.indexOf(same[j]); data.videos[a]=same[j]; data.videos[b]=v; setDirty(true); renderVideos(); }
 async function delV(v){ if(!confirm('Delete "'+v.title+'"?')) return; data.videos=data.videos.filter((x)=>x!==v);
@@ -325,7 +373,7 @@ function renderVideos(){
   const L=$("#listL"), P=$("#listP"); L.innerHTML=""; P.innerHTML="";
   const l=data.videos.filter((v)=>v.orient!=="portrait"), p=data.videos.filter((v)=>v.orient==="portrait");
   l.forEach((v)=>L.appendChild(vitemEl(v))); p.forEach((v)=>P.appendChild(vitemEl(v)));
-  if(!l.length) L.innerHTML='<div class="up">No landscape videos yet.</div>'; if(!p.length) P.innerHTML='<div class="up">No reels yet.</div>';
+  if(!l.length) L.innerHTML='<div class="empty">No landscape videos yet. Upload one above.</div>'; if(!p.length) P.innerHTML='<div class="empty">No reels yet. Upload one above (choose “Reel”).</div>';
   const cats=[]; l.forEach((v)=>{ if(cats.indexOf(v.category)<0) cats.push(v.category); });
   $("#catList").innerHTML=cats.map((c)=>'<option value="'+c.replace(/"/g,"&quot;")+'">').join("");
 }
@@ -358,7 +406,7 @@ function listEditor(hostId, arr, fields, labelFn){
     });
     host.appendChild(box);
   });
-  if(!arr.length) host.innerHTML='<div class="up">None yet.</div>';
+  if(!arr.length) host.innerHTML='<div class="empty">None yet.</div>';
 }
 function render(hostId,arr,fields,labelFn){ listEditor(hostId,arr,fields,labelFn); }
 
@@ -387,7 +435,7 @@ function stringList(hostId, arr, label, rerender){
     const ta=document.createElement("textarea"); ta.rows=2; ta.value=val; ta.addEventListener("input",()=>{ arr[idx]=ta.value; setDirty(true); }); box.appendChild(ta);
     host.appendChild(box);
   });
-  if(!arr.length) host.innerHTML='<div class="up">None yet.</div>';
+  if(!arr.length) host.innerHTML='<div class="empty">None yet.</div>';
 }
 function renderProcess(){ renderSpec("processForm", data.process, [
   {k:"eyebrow",label:"Eyebrow"},{k:"heading",label:"Heading"},{k:"sub",label:"Subtext",ta:true},
