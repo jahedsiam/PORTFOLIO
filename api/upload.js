@@ -1,11 +1,12 @@
 import { handleUpload } from "@vercel/blob/client";
-import { isAuthed } from "./_lib/auth.js";
+import { isAuthed, readJson } from "./_lib/auth.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
   try {
+    const body = await readJson(req);
     const json = await handleUpload({
-      body: req.body,
+      body,
       request: req,
       onBeforeGenerateToken: async () => {
         if (!isAuthed(req)) throw new Error("unauthorized");

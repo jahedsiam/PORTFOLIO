@@ -1,5 +1,5 @@
 import { list, put } from "@vercel/blob";
-import { requireAuth } from "./_lib/auth.js";
+import { requireAuth, readJson } from "./_lib/auth.js";
 
 const PATH = "site/content.json";
 
@@ -71,7 +71,7 @@ export default async function handler(req, res) {
     }
     if (req.method === "POST") {
       if (!requireAuth(req, res)) return;
-      const c = clean(req.body);
+      const c = clean(await readJson(req));
       await put(PATH, JSON.stringify(c), {
         access: "public", contentType: "application/json", addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 60,
       });

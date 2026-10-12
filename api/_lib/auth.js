@@ -1,5 +1,17 @@
 import crypto from "node:crypto";
 
+// Read and JSON-parse the request body, whether or not the runtime pre-parsed it.
+export async function readJson(req) {
+  if (req.body && typeof req.body === "object") return req.body;
+  if (typeof req.body === "string") { try { return JSON.parse(req.body); } catch { return {}; } }
+  try {
+    const chunks = [];
+    for await (const c of req) chunks.push(typeof c === "string" ? Buffer.from(c) : c);
+    const raw = Buffer.concat(chunks).toString("utf8");
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
 const DAY = 24 * 3600 * 1000;
 const secret = () => process.env.ADMIN_SECRET || process.env.ADMIN_PASSWORD || "";
 const sign = (v) => crypto.createHmac("sha256", secret()).update(v).digest("hex");
