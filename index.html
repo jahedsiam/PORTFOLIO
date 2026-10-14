@@ -513,13 +513,13 @@
 
   <!-- ======================= SERVICES ======================= -->
 <style>
-.wic{--red:#e11d2e;--red-glow:rgba(225,29,46,.42);position:relative;padding:110px 20px;background:#050507;color:#fff;overflow:hidden;font-family:inherit}
-.wic::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 45% 55% at 72% 50%,rgba(225,29,46,.18),transparent 70%)}
+.wic{--red:#6366F1;--red-glow:rgba(99,102,241,.42);position:relative;padding:110px 20px;background:#050507;color:#fff;overflow:hidden;font-family:inherit}
+.wic::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 45% 55% at 72% 50%,rgba(99,102,241,.18),transparent 70%)}
 .wic-wrap{position:relative;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center}
-.wic-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#ff8a93;background:rgba(225,29,46,.1);border:1px solid rgba(225,29,46,.3)}
+.wic-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#a5b4fc;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3)}
 .wic-eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
 .wic-title{font-size:clamp(38px,6vw,68px);line-height:1.02;margin:20px 0 22px;font-weight:700;letter-spacing:-.03em}
-.wic-title em{font-style:normal;background:linear-gradient(90deg,#ff5a66,var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wic-title em{font-style:normal;background:linear-gradient(90deg,#818CF8,var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
 .wic-list{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:14px}
 .wic-list li{display:flex;align-items:center;gap:12px;color:#c9c9d0;font-size:16px;opacity:0;transform:translateX(-16px);animation:wicIn .8s cubic-bezier(.2,.85,.25,1) forwards}
 .wic-list li:nth-child(1){animation-delay:.3s}.wic-list li:nth-child(2){animation-delay:.45s}.wic-list li:nth-child(3){animation-delay:.6s}
@@ -537,7 +537,7 @@
 @keyframes wicDrift{0%,100%{transform:translate3d(0,0,var(--z)) rotateX(16deg) rotateY(-18deg) rotateZ(var(--r))}50%{transform:translate3d(0,-14px,var(--z)) rotateX(10deg) rotateY(-10deg) rotateZ(calc(var(--r) + 5deg))}}
 .wic-slab{position:absolute;inset:0;border-radius:28%}
 .wic-slab::before{content:"";position:absolute;inset:0;border-radius:inherit;transform:translateY(8px);background:linear-gradient(180deg,#1c0508,#050203);box-shadow:0 30px 40px -8px rgba(0,0,0,.9),0 16px 50px -14px var(--red-glow)}
-.wic-face{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:grid;place-items:center;background:radial-gradient(120% 90% at 30% 0%,#3d3d44 0%,#1c1c20 45%,#0b0b0d 100%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.24),inset 0 -2px 0 rgba(255,110,120,.6),inset 0 -20px 28px -10px rgba(225,29,46,.25)}
+.wic-face{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:grid;place-items:center;background:radial-gradient(120% 90% at 30% 0%,#3d3d44 0%,#1c1c20 45%,#0b0b0d 100%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.24),inset 0 -2px 0 rgba(129,140,248,.6),inset 0 -20px 28px -10px rgba(99,102,241,.25)}
 .wic-face::after{content:"";position:absolute;inset:0;opacity:.32;mix-blend-mode:overlay;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .wic-glyph{position:absolute;left:26%;top:26%;width:48%;height:48%;z-index:1;overflow:visible;filter:drop-shadow(0 2px 0 rgba(255,255,255,.3)) drop-shadow(0 -1px 1px rgba(0,0,0,.95))}
 .wic-glyph use{fill:#0c0c0f}
@@ -645,78 +645,105 @@
   </section>
 
 <style>
-@property --hiw-a{syntax:"<angle>";inherits:false;initial-value:0deg}
-.hiw{--red:#e11d2e;--red-glow:rgba(225,29,46,.38);--dur:4000ms;position:relative;padding:110px 16px 90px;background:#07070a;color:#fff;overflow:hidden;text-align:center;font-family:inherit}
-.hiw::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 50% 48%,rgba(225,29,46,.16),transparent 70%),radial-gradient(ellipse 80% 40% at 50% 110%,rgba(225,29,46,.12),transparent 70%)}
-.hiw::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,#000,transparent 75%)}
+.hiw{position:relative;padding:110px 24px 120px;background:radial-gradient(1200px 600px at 50% -10%,rgba(99,102,241,.12),transparent 70%),#07070c;color:#f4f4f6;overflow:hidden;text-align:center;font-family:inherit}
+.hiw::before{content:"";position:absolute;top:0;left:50%;width:min(900px,90%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(99,102,241,.6),transparent)}
 .hiw>*{position:relative;z-index:1}
-.hiw-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#ff8a93;background:rgba(225,29,46,.1);border:1px solid rgba(225,29,46,.3)}
-.hiw-eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
-.hiw-title{font-size:clamp(32px,5.5vw,56px);line-height:1.08;margin:18px 0 12px;font-weight:700;letter-spacing:-.02em}
-.hiw-title em{font-style:normal;background:linear-gradient(90deg,#ff5a66,var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hiw-sub{color:#8d8d96;max-width:500px;margin:0 auto 56px;font-size:16px;line-height:1.6}
-.hiw-stage{position:relative;height:380px;max-width:980px;margin:0 auto;perspective:1400px;transform-style:preserve-3d}
-.hiw-floor{position:absolute;left:50%;bottom:6px;width:420px;height:60px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(225,29,46,.45),transparent 70%);filter:blur(14px);opacity:.8}
-.hiw-card{position:absolute;left:50%;top:50%;width:250px;height:320px;margin:-165px 0 0 -125px;border-radius:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;user-select:none;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02) 40%,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 60px -10px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.14);opacity:0;transform:translateX(0) scale(.5);pointer-events:none;transition:transform .9s cubic-bezier(.2,.85,.25,1),opacity .9s,filter .9s}
-.hiw-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;opacity:0;transition:opacity .6s;background:conic-gradient(from var(--hiw-a),transparent 0 55%,rgba(255,90,102,.2) 70%,var(--red) 88%,#fff 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:hiwSpin 4s linear infinite}
-@keyframes hiwSpin{to{--hiw-a:360deg}}
-.hiw-bignum{position:absolute;top:10px;right:18px;font-size:64px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.1);letter-spacing:-.04em}
-.hiw-ico{width:104px;height:104px;filter:drop-shadow(0 12px 22px var(--red-glow));transition:transform .8s cubic-bezier(.2,.85,.25,1)}
-.hiw-ico svg{width:100%;height:100%;overflow:visible}
-.hiw-name{font-size:19px;font-weight:600;color:#cfcfd6;transition:color .5s}
-.hiw-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6d6d76;transition:color .5s}
-.hiw-card[data-pos="0"]{opacity:1;transform:translateX(0) translateZ(60px) scale(1.06);z-index:3;box-shadow:0 40px 80px -10px rgba(0,0,0,.85),0 0 60px -10px var(--red-glow),inset 0 1px 0 rgba(255,255,255,.2)}
-.hiw-card[data-pos="0"]::before{opacity:1}
-.hiw-card[data-pos="0"] .hiw-ico{transform:translateY(-4px) scale(1.06)}
-.hiw-card[data-pos="0"] .hiw-name{color:#fff}
-.hiw-card[data-pos="0"] .hiw-tag{color:#ff6b76}
-.hiw-card[data-pos="-1"]{opacity:.55;transform:translateX(-112%) rotateY(32deg) scale(.82);filter:blur(1.2px) saturate(.7);z-index:2}
-.hiw-card[data-pos="1"]{opacity:.55;transform:translateX(112%) rotateY(-32deg) scale(.82);filter:blur(1.2px) saturate(.7);z-index:2}
-.hiw-detail{max-width:520px;margin:64px auto 0;min-height:92px}
-.hiw-detail h3{margin:0 0 8px;font-size:24px;font-weight:650}
-.hiw-detail p{margin:0;color:#9a9aa3;font-size:16px;line-height:1.6}
-.hiw-detail .swap{animation:hiwIn .6s cubic-bezier(.2,.85,.25,1)}
-@keyframes hiwIn{from{opacity:0;transform:translateY(10px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
-.hiw-bar{width:160px;height:3px;margin:34px auto 0;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}
-.hiw-bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),#ff6b76);box-shadow:0 0 12px var(--red-glow)}
-.hiw-bar b.run{animation:hiwFill var(--dur) linear forwards}
-@keyframes hiwFill{from{width:0}to{width:100%}}
-@media(max-width:700px){.hiw{padding:80px 16px 70px}.hiw-stage{height:350px}.hiw-card{width:210px;height:290px;margin:-150px 0 0 -105px}.hiw-ico{width:88px;height:88px}.hiw-card[data-pos="-1"]{transform:translateX(-78%) rotateY(32deg) scale(.76)}.hiw-card[data-pos="1"]{transform:translateX(78%) rotateY(-32deg) scale(.76)}.hiw-floor{width:280px}}
-@media(prefers-reduced-motion:reduce){.hiw-card,.hiw-ico{transition:none}.hiw-card::before{animation:none}.hiw-bar b.run{animation:none;width:100%}}
+.hiw #hiwEmbers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;-webkit-mask-image:radial-gradient(ellipse at 50% 55%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 55%,#000 20%,transparent 75%)}
+.hiw-eyebrow{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#9a9aa3;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);backdrop-filter:blur(8px);padding:7px 14px;border-radius:999px;font-weight:500}
+.hiw-eyebrow i{width:6px;height:6px;border-radius:50%;background:#6366F1;box-shadow:0 0 10px #6366F1}
+.hiw-eyebrow::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(129,140,248,.25) 50%,transparent 70%);transform:translateX(-120%);animation:hiwShine 4.5s ease-in-out infinite}
+@keyframes hiwShine{to{transform:translateX(120%)}}
+.hiw h2{font-size:clamp(36px,6vw,64px);line-height:1.04;letter-spacing:-.045em;margin:22px auto 16px;font-weight:650;max-width:760px}
+.hiw h2 span{background:linear-gradient(180deg,#fff,#818CF8 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hiw-sub{color:#8b8b95;font-size:18px;line-height:1.55;max-width:540px;margin:0 auto}
+.hiw-stage{position:relative;height:360px;margin:56px auto 0;max-width:900px;perspective:1200px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.hiw-stage::before{content:"";position:absolute;left:50%;top:50%;width:520px;height:320px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(99,102,241,.26),transparent);filter:blur(30px);pointer-events:none}
+.hiw-stage::after{content:"";position:absolute;left:50%;bottom:6px;width:560px;height:90px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(99,102,241,.34),transparent);filter:blur(14px);opacity:.8;pointer-events:none}
+.hiw-step{position:absolute;left:50%;top:50%;width:230px;height:290px;margin:-145px 0 0 -115px;border-radius:30px;background:linear-gradient(180deg,rgba(24,24,32,.95),rgba(8,8,12,.98));border:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;cursor:pointer;transition:transform .9s cubic-bezier(.22,.9,.24,1),opacity .9s,filter .9s,border-color .9s,box-shadow .9s;transform:translateX(calc(var(--o) * 250px)) scale(.8);opacity:0;filter:brightness(.45) saturate(.6);z-index:1;-webkit-box-reflect:below 6px linear-gradient(transparent 62%,rgba(255,255,255,.07))}
+.hiw-step::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(155deg,rgba(255,255,255,.10),transparent 38%)}
+.hiw-step[data-o="-1"],.hiw-step[data-o="1"]{opacity:1}
+.hiw-step[data-o="0"]{transform:translateX(0) scale(1.08);opacity:1;filter:none;z-index:3;border-color:rgba(129,140,248,.45);box-shadow:0 30px 80px rgba(0,0,0,.8),0 0 70px rgba(99,102,241,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.hiw-step[data-o="0"]::before{background:linear-gradient(155deg,rgba(165,180,252,.2),transparent 42%)}
+.hiw-step[data-o="-1"]{transform:translateX(-250px) rotateY(18deg) scale(.82);z-index:2}
+.hiw-step[data-o="1"]{transform:translateX(250px) rotateY(-18deg) scale(.82);z-index:2}
+.hiw-step[data-o="2"],.hiw-step[data-o="-2"]{transform:translateX(0) scale(.6);opacity:0}
+.hiw-step svg{width:104px;height:104px;overflow:visible;transition:transform .9s;filter:url(#hiw-bevel) drop-shadow(0 18px 24px rgba(0,0,0,.75))}
+.hiw-step[data-o="0"] svg{animation:hiwFloat 5s ease-in-out infinite;filter:url(#hiw-bevel) drop-shadow(0 0 24px rgba(99,102,241,.6))}
+@keyframes hiwFloat{0%,100%{transform:translateY(0) rotate(-3deg) scale(1.1)}50%{transform:translateY(-10px) rotate(3deg) scale(1.1)}}
+.hiw-step b{font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:13px;color:#cfcfd6;transition:color .6s}
+.hiw-step[data-o="0"] b{color:#fff}
+.hiw-step small{position:absolute;top:18px;left:20px;font-size:11px;letter-spacing:.14em;color:#8b8b95;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.hiw-step[data-o="0"] small{color:#818CF8}
+.hiw-copy{position:relative;height:110px;margin:34px auto 0;max-width:520px}
+.hiw-copy div{position:absolute;inset:0;opacity:0;transform:translateY(12px);transition:opacity .6s,transform .6s;pointer-events:none}
+.hiw-copy div.on{opacity:1;transform:none}
+.hiw-copy h3{font-size:26px;margin:0 0 8px;letter-spacing:-.03em;font-weight:650}
+.hiw-copy p{color:#8b8b95;font-size:16px;line-height:1.55}
+.hiw-dots{display:flex;justify-content:center;gap:10px;margin-top:6px}
+.hiw-dots button{all:unset;cursor:pointer;width:34px;height:4px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden;position:relative}
+.hiw-dots button i{position:absolute;inset:0;background:linear-gradient(90deg,#6366F1,#a5b4fc);transform:scaleX(0);transform-origin:left}
+.hiw-dots button.done i{transform:scaleX(1)}
+.hiw-dots button.on i{animation:hiwFill var(--hdur,3.2s) linear forwards}
+.hiw.paused .hiw-dots button.on i{animation-play-state:paused}
+@keyframes hiwFill{to{transform:scaleX(1)}}
+@media(max-width:700px){.hiw-stage{height:330px}.hiw-stage::after{width:320px}.hiw-step{width:190px;height:250px;margin:-125px 0 0 -95px}.hiw-step[data-o="-1"]{transform:translateX(-150px) rotateY(18deg) scale(.8)}.hiw-step[data-o="1"]{transform:translateX(150px) rotateY(-18deg) scale(.8)}.hiw-step svg{width:84px;height:84px}}
+@media(prefers-reduced-motion:reduce){.hiw-step,.hiw-copy div{transition:none}.hiw-eyebrow::after,.hiw-step[data-o="0"] svg{animation:none}}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<linearGradient id="gi-fill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".28" stop-color="#ffb3b9" stop-opacity=".32"/><stop offset=".6" stop-color="#e11d2e" stop-opacity=".28"/><stop offset=".85" stop-color="#ff9a6b" stop-opacity=".7"/><stop offset="1" stop-color="#fff" stop-opacity=".5"/></linearGradient>
-<linearGradient id="gi-edge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#ffd2b0" stop-opacity=".9"/></linearGradient>
-<linearGradient id="gi-depth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a0710"/><stop offset="1" stop-color="#b3121f"/></linearGradient>
-<symbol id="s-chat" viewBox="0 0 64 64"><path d="M14 8h36a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8H30l-12 11V46h-4a8 8 0 0 1-8-8V16a8 8 0 0 1 8-8z"/></symbol>
-<symbol id="s-cut" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="9"/><rect x="14" y="22" width="8" height="8" rx="2"/><rect x="28" y="22" width="22" height="8" rx="2"/><rect x="14" y="36" width="24" height="8" rx="2"/></symbol>
-<symbol id="s-play" viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="40" rx="11"/><path d="M26 23.5v17a2 2 0 0 0 3 1.7l14-8.5a2 2 0 0 0 0-3.4l-14-8.5a2 2 0 0 0-3 1.7z"/></symbol>
-<symbol id="s-send" viewBox="0 0 64 64"><path d="M58 6 6 26l20 8 8 20z"/></symbol>
+<filter id="hiw-bevel" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+<feGaussianBlur in="SourceAlpha" stdDeviation="2.2" result="b"/>
+<feSpecularLighting in="b" surfaceScale="5" specularConstant=".9" specularExponent="22" lighting-color="#d6d9ff" result="spec"><feDistantLight azimuth="235" elevation="52"/></feSpecularLighting>
+<feComposite in="spec" in2="SourceAlpha" operator="in" result="specIn"/>
+<feComposite in="SourceGraphic" in2="specIn" operator="arithmetic" k1="0" k2="1" k3=".75" k4="0"/>
+</filter>
+<linearGradient id="hiwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#a5b4fc"/><stop offset=".75" stop-color="#312e81"/><stop offset="1" stop-color="#6366F1"/></linearGradient>
 </defs></svg>
 <section class="hiw" id="how-it-works" aria-label="How it works">
-  <span class="hiw-eyebrow"><i></i>Process</span>
-  <h2 class="hiw-title">How it <em>works</em></h2>
-  <p class="hiw-sub">A simple, transparent workflow — from your first message to the final export.</p>
-  <div class="hiw-stage" id="hiwStage">
-    <div class="hiw-floor"></div>
-    <div class="hiw-card"><span class="hiw-bignum">01</span><i class="hiw-ico" data-i="chat"></i><div class="hiw-name">Share Your Brief</div><div class="hiw-tag">Day 0</div></div>
-    <div class="hiw-card"><span class="hiw-bignum">02</span><i class="hiw-ico" data-i="cut"></i><div class="hiw-name">I Start Editing</div><div class="hiw-tag">Day 1–2</div></div>
-    <div class="hiw-card"><span class="hiw-bignum">03</span><i class="hiw-ico" data-i="play"></i><div class="hiw-name">Review &amp; Revise</div><div class="hiw-tag">Day 2–3</div></div>
-    <div class="hiw-card"><span class="hiw-bignum">04</span><i class="hiw-ico" data-i="send"></i><div class="hiw-name">Final Delivery</div><div class="hiw-tag">Day 3–4</div></div>
+  <canvas id="hiwEmbers"></canvas>
+  <span class="hiw-eyebrow reveal"><i></i>How it works</span>
+  <h2 class="reveal"><span>From brief to final cut</span> in four steps.</h2>
+  <p class="hiw-sub reveal">A simple, transparent process &mdash; you always know what&#39;s happening next.</p>
+  <div class="hiw-stage reveal" id="hiwStage">
+    <div class="hiw-step"><small>01</small><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="52" cy="52" r="30" fill="none" stroke="url(#hiwg)" stroke-width="14"/><circle cx="52" cy="52" r="30" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2" transform="translate(-3 -3)"/><path d="M76 76 L102 102" stroke="url(#hiwg)" stroke-width="16" stroke-linecap="round"/></svg><b>Share Your Brief</b></div>
+    <div class="hiw-step"><small>02</small><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M24 96 L30 66 L78 18 L102 42 L54 90 Z" fill="url(#hiwg)"/><path d="M24 96 L30 66 L78 18 L102 42 L54 90 Z" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="2.5" stroke-linejoin="round"/><path d="M66 30 L90 54" stroke="#fff" stroke-opacity=".7" stroke-width="2.5"/><path d="M30 66 L54 90" stroke="#fff" stroke-opacity=".5" stroke-width="2"/></svg><b>Edit &amp; Craft</b></div>
+    <div class="hiw-step"><small>03</small><svg viewBox="0 0 120 120" aria-hidden="true"><rect x="18" y="26" width="84" height="68" rx="18" fill="url(#hiwg)"/><rect x="18" y="26" width="84" height="68" rx="18" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2.5"/><path d="M52 47 v26 a3 3 0 0 0 4.6 2.5 l21-13 a3 3 0 0 0 0-5 l-21-13 A3 3 0 0 0 52 47 Z" fill="#fff" fill-opacity=".92"/></svg><b>Review &amp; Revise</b></div>
+    <div class="hiw-step"><small>04</small><svg viewBox="0 0 120 120" aria-hidden="true"><path d="M60 10 C82 28 90 52 84 82 L36 82 C30 52 38 28 60 10 Z" fill="url(#hiwg)"/><path d="M60 10 C82 28 90 52 84 82 L36 82 C30 52 38 28 60 10 Z" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="2.5"/><circle cx="60" cy="48" r="9" fill="#000" fill-opacity=".55" stroke="#fff" stroke-opacity=".8" stroke-width="2"/><path d="M36 64 L18 88 L38 82 Z M84 64 L102 88 L82 82 Z" fill="url(#hiwg)" stroke="#fff" stroke-opacity=".7" stroke-width="2"/><path d="M50 90 L60 112 L70 90 Z" fill="#a5b4fc" fill-opacity=".9"/></svg><b>Final Delivery</b></div>
   </div>
-  <div class="hiw-detail" aria-live="polite"><div id="hiwDetail"></div></div>
-  <div class="hiw-bar" aria-hidden="true"><b id="hiwBar"></b></div>
+  <div class="hiw-copy" id="hiwCopy">
+    <div><h3>Share Your Brief</h3><p>Send me your footage, references, style and deadline. I reply fast with a clear plan and timeline.</p></div>
+    <div><h3>Edit &amp; Craft</h3><p>Cuts, pacing, color, sound and motion &mdash; built carefully around your brief and brand.</p></div>
+    <div><h3>Review &amp; Revise</h3><p>Watch the draft, leave notes, and I refine it until every frame feels right.</p></div>
+    <div><h3>Final Delivery</h3><p>You receive the final export in every format you need, ready to publish.</p></div>
+  </div>
+  <div class="hiw-dots" id="hiwDots"><button aria-label="Step 1"><i></i></button><button aria-label="Step 2"><i></i></button><button aria-label="Step 3"><i></i></button><button aria-label="Step 4"><i></i></button></div>
 </section>
 <script>
 (function(){
-  var data=[['Share Your Brief','Send me your footage, references, style and deadline. I reply fast with a clear plan and timeline.'],['I Start Editing','Cuts, pacing, color, sound and motion — built carefully around your brief and brand.'],['Review & Revise','Watch the draft, leave notes, and I refine it until every frame feels right.'],['Final Delivery','You receive the final export in every format you need, ready to publish.']];
-  var stage=document.getElementById('hiwStage'),cards=[].slice.call(stage.querySelectorAll('.hiw-card')),n=cards.length,detail=document.getElementById('hiwDetail'),bar=document.getElementById('hiwBar'),cur=0,timer,paused=false,DUR=4000;
-  document.querySelectorAll('.hiw-ico[data-i]').forEach(function(el){var k=el.getAttribute('data-i');el.innerHTML='<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#s-'+k+'" fill="url(#gi-depth)" transform="translate(3 4)"/><use href="#s-'+k+'" fill="url(#gi-fill)" stroke="url(#gi-edge)" stroke-width="1.6" stroke-linejoin="round"/></svg>';});
-  function render(){cards.forEach(function(c,i){var o=((i-cur)%n+n)%n;if(o>n/2)o-=n;c.setAttribute('data-pos',Math.abs(o)>1?'x':o);});detail.innerHTML='<div class="swap"><h3>'+data[cur][0]+'</h3><p>'+data[cur][1]+'</p></div>';bar.classList.remove('run');void bar.offsetWidth;bar.classList.add('run');}
-  function next(){cur=(cur+1)%n;render();}
-  function start(){clearInterval(timer);render();timer=setInterval(function(){if(!paused)next();},DUR);}
-  if('IntersectionObserver' in window)new IntersectionObserver(function(en){paused=!en[0].isIntersecting;}).observe(stage);
-  start();
+  var sec=document.getElementById('how-it-works');if(!sec)return;
+  var steps=[].slice.call(sec.querySelectorAll('.hiw-step')),copy=[].slice.call(sec.querySelectorAll('.hiw-copy div')),dots=[].slice.call(sec.querySelectorAll('.hiw-dots button')),N=steps.length,DUR=3200,cur=0,timer=null;
+  sec.style.setProperty('--hdur',DUR+'ms');
+  function off(i){var d=(i-cur+N)%N;return d>N/2?d-N:d}
+  function render(){steps.forEach(function(el,i){el.dataset.o=off(i)});copy.forEach(function(el,i){el.classList.toggle('on',i===cur)});dots.forEach(function(b,i){b.classList.remove('on','done');void b.offsetWidth;if(i<cur)b.classList.add('done');if(i===cur)b.classList.add('on')})}
+  function go(i){cur=(i+N)%N;render();restart()}
+  function restart(){clearTimeout(timer);if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;timer=setTimeout(function(){go(cur+1)},DUR)}
+  steps.forEach(function(el,i){el.addEventListener('click',function(){go(i)})});
+  dots.forEach(function(b,i){b.addEventListener('click',function(){go(i)})});
+  sec.addEventListener('mouseenter',function(){sec.classList.add('paused');clearTimeout(timer)});
+  sec.addEventListener('mouseleave',function(){sec.classList.remove('paused');restart()});
+  new IntersectionObserver(function(e){if(e[0].isIntersecting){sec.classList.remove('paused');restart()}else{sec.classList.add('paused');clearTimeout(timer)}},{threshold:.2}).observe(sec);
+  render();restart();
+})();
+(function(){
+  var cv=document.getElementById('hiwEmbers');if(!cv)return;var ctx=cv.getContext('2d');if(!ctx||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var w,h,P=[],dpr=Math.min(window.devicePixelRatio||1,2);
+  function size(){var r=cv.parentNode.getBoundingClientRect();w=r.width;h=r.height;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+  function mk(init){return{x:Math.random()*w,y:init?Math.random()*h:h+10,r:Math.random()*1.6+.4,v:Math.random()*.35+.1,a:Math.random()*.6+.2,d:Math.random()*Math.PI*2}}
+  size();window.addEventListener('resize',size);for(var i=0;i<46;i++)P.push(mk(true));
+  var vis=true;new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(cv);
+  (function loop(t){requestAnimationFrame(loop);if(!vis)return;ctx.clearRect(0,0,w,h);
+    for(var k=0;k<P.length;k++){var p=P[k];p.y-=p.v;p.x+=Math.sin(t/1800+p.d)*.25;if(p.y<-10)P[k]=mk(false);
+      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);g.addColorStop(0,'rgba(129,140,248,'+p.a+')');g.addColorStop(1,'rgba(99,102,241,0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,7);ctx.fill()}})(0);
 })();
 </script>
 
