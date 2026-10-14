@@ -462,10 +462,10 @@
   <div class="nav-inner">
     <a href="#top" class="logo"><span class="dot" data-c="brand.dot">S</span> <span data-c="brand.name">Sahin</span></a>
     <div class="nav-links">
-      <a href="#services">Services</a>
+      <a href="#what-i-do">Services</a>
       <a href="#work">Work</a>
       <a href="#about">About</a>
-      <a href="#process">Process</a>
+      <a href="#how-it-works">Process</a>
       <a href="#contact" class="nav-cta" data-c="brand.cta">Let's talk</a>
     </div>
   </div>
@@ -512,24 +512,76 @@
   <div class="reel-divider" aria-hidden="true"></div>
 
   <!-- ======================= SERVICES ======================= -->
-  <section class="section services" id="services">
-    <div class="glow glow-b"></div>
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="left reveal">
-          <span class="eyebrow" data-c="services.eyebrow">What I do</span>
-          <h2 data-c="services.heading">Every video, built to convert.</h2>
-          <p data-c="services.sub">From the first hook to the final frame — editing that keeps people watching and moves them to act.</p>
-        </div>
-      </div>
-      <div class="services-grid" id="servicesGrid">
-        <div class="service reveal"><div class="svc-ico" data-icon="film"></div><h3>Product Videos</h3><p>Clear, polished demos that explain what you do in under 60 seconds.</p></div>
-        <div class="service reveal"><div class="svc-ico" data-icon="reel"></div><h3>Short-form Reels</h3><p>Punchy vertical edits built for Reels, Shorts, and TikTok retention.</p></div>
-        <div class="service reveal"><div class="svc-ico" data-icon="target"></div><h3>Ad Creatives</h3><p>Scroll-stopping paid ads with hooks tested to drive real clicks.</p></div>
-        <div class="service reveal"><div class="svc-ico" data-icon="sparkles"></div><h3>Motion &amp; Explainers</h3><p>Animated graphics and explainers that turn complexity into clarity.</p></div>
-      </div>
+<style>
+.wic{--red:#e11d2e;--red-glow:rgba(225,29,46,.42);position:relative;padding:110px 20px;background:#050507;color:#fff;overflow:hidden;font-family:inherit}
+.wic::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 45% 55% at 72% 50%,rgba(225,29,46,.18),transparent 70%)}
+.wic-wrap{position:relative;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center}
+.wic-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#ff8a93;background:rgba(225,29,46,.1);border:1px solid rgba(225,29,46,.3)}
+.wic-eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+.wic-title{font-size:clamp(38px,6vw,68px);line-height:1.02;margin:20px 0 22px;font-weight:700;letter-spacing:-.03em}
+.wic-title em{font-style:normal;background:linear-gradient(90deg,#ff5a66,var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wic-list{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:14px}
+.wic-list li{display:flex;align-items:center;gap:12px;color:#c9c9d0;font-size:16px;opacity:0;transform:translateX(-16px);animation:wicIn .8s cubic-bezier(.2,.85,.25,1) forwards}
+.wic-list li:nth-child(1){animation-delay:.3s}.wic-list li:nth-child(2){animation-delay:.45s}.wic-list li:nth-child(3){animation-delay:.6s}
+@keyframes wicIn{to{opacity:1;transform:none}}
+.wic-list svg{flex:none;width:20px;height:20px;color:var(--red);filter:drop-shadow(0 0 6px var(--red-glow))}
+.wic-btns{display:flex;gap:12px;flex-wrap:wrap}
+.wic-btn{padding:13px 24px;border-radius:99px;font-size:15px;font-weight:600;text-decoration:none;transition:transform .3s,box-shadow .3s,background .3s}
+.wic-btn.p{background:#fff;color:#0a0a0a}.wic-btn.p:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--red-glow)}
+.wic-btn.s{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1)}.wic-btn.s:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.wic-cluster{position:relative;height:500px;perspective:1100px}
+.wic-rig{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--px,0deg)) rotateY(var(--py,0deg));transition:transform .5s cubic-bezier(.2,.85,.25,1)}
+.wic-pos{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);transform-style:preserve-3d}
+.wic-fly{width:100%;height:100%;transform-style:preserve-3d;opacity:0;animation:wicFly 1.3s cubic-bezier(.2,.9,.25,1) forwards,wicDrift var(--d) ease-in-out 1.3s infinite;animation-delay:var(--dl),calc(var(--dl) + 1.3s)}
+@keyframes wicFly{from{opacity:0;transform:translate3d(60px,260px,-300px) rotateZ(40deg) scale(.5)}to{opacity:1;transform:translate3d(0,0,var(--z)) rotateX(16deg) rotateY(-18deg) rotateZ(var(--r)) scale(1)}}
+@keyframes wicDrift{0%,100%{transform:translate3d(0,0,var(--z)) rotateX(16deg) rotateY(-18deg) rotateZ(var(--r))}50%{transform:translate3d(0,-14px,var(--z)) rotateX(10deg) rotateY(-10deg) rotateZ(calc(var(--r) + 5deg))}}
+.wic-slab{position:absolute;inset:0;border-radius:28%}
+.wic-slab::before{content:"";position:absolute;inset:0;border-radius:inherit;transform:translateY(8px);background:linear-gradient(180deg,#1c0508,#050203);box-shadow:0 30px 40px -8px rgba(0,0,0,.9),0 16px 50px -14px var(--red-glow)}
+.wic-face{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:grid;place-items:center;background:radial-gradient(120% 90% at 30% 0%,#3d3d44 0%,#1c1c20 45%,#0b0b0d 100%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.24),inset 0 -2px 0 rgba(255,110,120,.6),inset 0 -20px 28px -10px rgba(225,29,46,.25)}
+.wic-face::after{content:"";position:absolute;inset:0;opacity:.32;mix-blend-mode:overlay;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.wic-glyph{position:absolute;left:26%;top:26%;width:48%;height:48%;z-index:1;overflow:visible;filter:drop-shadow(0 2px 0 rgba(255,255,255,.3)) drop-shadow(0 -1px 1px rgba(0,0,0,.95))}
+.wic-glyph use{fill:#0c0c0f}
+@media(max-width:860px){.wic-wrap{grid-template-columns:1fr;gap:10px}.wic-cluster{height:420px;order:-1;transform:scale(.85);margin:-20px 0 -10px}.wic{padding:80px 20px}}
+@media(prefers-reduced-motion:reduce){.wic-fly{animation:none;opacity:1;transform:rotateX(16deg) rotateY(-18deg) rotateZ(var(--r))}.wic-list li{animation:none;opacity:1;transform:none}}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="c-play" viewBox="0 0 64 64"><path fill-rule="evenodd" d="M19 10h26a11 11 0 0 1 11 11v22a11 11 0 0 1-11 11H19A11 11 0 0 1 8 43V21a11 11 0 0 1 11-11zm7 13.5v17a2 2 0 0 0 3 1.7l14-8.5a2 2 0 0 0 0-3.4l-14-8.5a2 2 0 0 0-3 1.7z"/></symbol>
+<symbol id="c-star" viewBox="0 0 64 64"><path d="M32 6c2 14 8 22 26 26-18 4-24 12-26 26-2-14-8-22-26-26C24 28 30 20 32 6z"/></symbol>
+<symbol id="c-drop" viewBox="0 0 64 64"><path d="M32 6C22 20 14 29 14 40a18 18 0 0 0 36 0C50 29 42 20 32 6z"/></symbol>
+<symbol id="c-reel" viewBox="0 0 64 64"><path fill-rule="evenodd" d="M26 5h12a10 10 0 0 1 10 10v34a10 10 0 0 1-10 10H26A10 10 0 0 1 16 49V15A10 10 0 0 1 26 5zm2 20v14l11-7z"/></symbol>
+<symbol id="c-wave" viewBox="0 0 64 64"><rect x="6" y="24" width="8" height="16" rx="4"/><rect x="18" y="12" width="8" height="40" rx="4"/><rect x="30" y="4" width="8" height="56" rx="4"/><rect x="42" y="16" width="8" height="32" rx="4"/><rect x="54" y="26" width="6" height="12" rx="3"/></symbol>
+<symbol id="c-image" viewBox="0 0 64 64"><path fill-rule="evenodd" d="M17 10h30a11 11 0 0 1 11 11v22a11 11 0 0 1-11 11H17A11 11 0 0 1 6 43V21a11 11 0 0 1 11-11zM12 46l14-16 10 11 6-6 10 11zM44 22a4 4 0 1 0 0 .01z"/></symbol>
+</defs></svg>
+<section class="wic" id="what-i-do">
+  <div class="wic-wrap">
+    <div class="wic-copy">
+      <span class="wic-eyebrow"><i></i>Services</span>
+      <h2 class="wic-title">What <em>I do.</em><br>Edits that hit.</h2>
+      <ul class="wic-list">
+        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.3 14.3-3.6-3.6 1.4-1.4 2.2 2.2 4.8-4.8 1.4 1.4z"/></svg>Video editing &amp; motion graphics</li>
+        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.3 14.3-3.6-3.6 1.4-1.4 2.2 2.2 4.8-4.8 1.4 1.4z"/></svg>Reels, shorts &amp; thumbnails</li>
+        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.3 14.3-3.6-3.6 1.4-1.4 2.2 2.2 4.8-4.8 1.4 1.4z"/></svg>Color grading &amp; sound design</li>
+      </ul>
+      <div class="wic-btns"><a class="wic-btn p" href="#contact">Hire me</a><a class="wic-btn s" href="#work">See my work</a></div>
     </div>
-  </section>
+    <div class="wic-cluster" id="wicCluster"><div class="wic-rig" id="wicRig">
+      <div class="wic-pos" style="--x:36%;--y:0%;--s:150px"><div class="wic-fly" style="--r:-8deg;--z:40px;--d:6.5s;--dl:.1s"><div class="wic-slab"><div class="wic-face"><svg class="wic-glyph" viewBox="0 0 64 64"><use width="64" height="64" href="#c-play"/></svg></div></div></div></div>
+      <div class="wic-pos" style="--x:66%;--y:14%;--s:128px"><div class="wic-fly" style="--r:14deg;--z:0px;--d:7.5s;--dl:.25s"><div class="wic-slab"><div class="wic-face"><svg class="wic-glyph" viewBox="0 0 64 64"><use width="64" height="64" href="#c-star"/></svg></div></div></div></div>
+      <div class="wic-pos" style="--x:2%;--y:26%;--s:136px"><div class="wic-fly" style="--r:-14deg;--z:-20px;--d:8s;--dl:.4s"><div class="wic-slab"><div class="wic-face"><svg class="wic-glyph" viewBox="0 0 64 64"><use width="64" height="64" href="#c-wave"/></svg></div></div></div></div>
+      <div class="wic-pos" style="--x:34%;--y:36%;--s:160px"><div class="wic-fly" style="--r:9deg;--z:70px;--d:6s;--dl:.55s"><div class="wic-slab"><div class="wic-face"><svg class="wic-glyph" viewBox="0 0 64 64"><use width="64" height="64" href="#c-reel"/></svg></div></div></div></div>
+      <div class="wic-pos" style="--x:68%;--y:52%;--s:130px"><div class="wic-fly" style="--r:-11deg;--z:10px;--d:7s;--dl:.7s"><div class="wic-slab"><div class="wic-face"><svg class="wic-glyph" viewBox="0 0 64 64"><use width="64" height="64" href="#c-drop"/></svg></div></div></div></div>
+      <div class="wic-pos" style="--x:14%;--y:62%;--s:124px"><div class="wic-fly" style="--r:17deg;--z:-10px;--d:8.5s;--dl:.85s"><div class="wic-slab"><div class="wic-face"><svg class="wic-glyph" viewBox="0 0 64 64"><use width="64" height="64" href="#c-image"/></svg></div></div></div></div>
+    </div></div>
+  </div>
+</section>
+<script>
+(function(){
+  var c=document.getElementById('wicCluster'),rig=document.getElementById('wicRig');
+  if(!c||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;rig.style.setProperty('--py',(x*16)+'deg');rig.style.setProperty('--px',(-y*16)+'deg');});
+  c.addEventListener('pointerleave',function(){rig.style.setProperty('--py','0deg');rig.style.setProperty('--px','0deg');});
+})();
+</script>
 
   <!-- ======================= VIDEO WORK ======================= -->
   <section class="section video-work" id="work">
@@ -592,70 +644,81 @@
     </div>
   </section>
 
-  <!-- ======================= PROCESS ======================= -->
-  <section class="section process" id="process">
-    <div class="glow glow-b" style="opacity:.22"></div>
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="left reveal">
-          <span class="eyebrow" data-c="process.eyebrow">How it works</span>
-          <h2 data-c="process.heading">How we make it happen.</h2>
-          <p data-c="process.sub">The same four-step rhythm behind every video I ship — no chaos, no endless revisions.</p>
-        </div>
-      </div>
-      <div class="timeline" id="timeline">
-        <div class="tl-line"><span class="tl-fill" id="tlFill"></span></div>
-
-        <div class="tl-step reveal">
-          <div class="tl-node"></div>
-          <div class="glass-card">
-            <div class="tl-num">01</div>
-            <div class="tl-body">
-              <div class="tl-ico anim"><svg class="pg pg-discovery" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g opacity=".4"><line x1="12" y1="15" x2="34" y2="15"/><line x1="12" y1="24" x2="29" y2="24"/><line x1="12" y1="33" x2="34" y2="33"/></g><g class="mag"><circle cx="20" cy="24" r="7" fill="currentColor" fill-opacity=".14"/><line x1="25" y1="29" x2="30" y2="34"/></g></svg></div>
-              <h4 data-c="process.s0t">Discovery</h4>
-              <p data-c="process.s0d">We lock in the goal, the audience, and the one action your video should drive.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-step reveal">
-          <div class="tl-node"></div>
-          <div class="glass-card">
-            <div class="tl-num">02</div>
-            <div class="tl-body">
-              <div class="tl-ico anim"><svg class="pg pg-script" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="12" width="13" height="10" rx="2" fill="currentColor" fill-opacity=".14"/><rect x="26" y="12" width="13" height="10" rx="2" fill="currentColor" fill-opacity=".14"/><path class="draw" d="M11 31 H30"/><g class="pen"><line x1="30" y1="35" x2="36" y2="29"/><path d="M36 29 l2.2 -2.2 2 2 -2.2 2.2z" fill="currentColor" stroke="none"/></g></svg></div>
-              <h4 data-c="process.s1t">Script &amp; Storyboard</h4>
-              <p data-c="process.s1d">You approve the structure and flow before a single cut — zero surprises later.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-step reveal">
-          <div class="tl-node"></div>
-          <div class="glass-card">
-            <div class="tl-num">03</div>
-            <div class="tl-body">
-              <div class="tl-ico anim"><svg class="pg pg-edit" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g stroke="none"><rect x="8" y="20" width="9" height="8" rx="1.5" fill="currentColor" fill-opacity=".18"/><rect x="19" y="20" width="7" height="8" rx="1.5" fill="currentColor" fill-opacity=".32"/><rect x="28" y="20" width="12" height="8" rx="1.5" fill="currentColor" fill-opacity=".18"/></g><g class="playhead"><line x1="24" y1="14" x2="24" y2="34"/><circle cx="24" cy="12.5" r="2" fill="currentColor" stroke="none"/></g></svg></div>
-              <h4 data-c="process.s2t">Edit &amp; Motion</h4>
-              <p data-c="process.s2d">Cuts, sound design, captions and motion graphics come together into the final piece.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-step reveal">
-          <div class="tl-node"></div>
-          <div class="glass-card">
-            <div class="tl-num">04</div>
-            <div class="tl-body">
-              <div class="tl-ico anim"><svg class="pg pg-delivery" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="rocket"><path d="M24 9 c4 3 5.5 8 5.5 12 l-2.5 3 h-6 l-2.5 -3 c0 -4 1.5 -9 5.5 -12z" fill="currentColor" fill-opacity=".16"/><circle cx="24" cy="17" r="2"/><path d="M21.5 24 l-3 4 M26.5 24 l3 4"/><path class="flame" d="M22 24 q2 5 2 6.5 q0 -1.5 2 -6.5z" fill="currentColor" stroke="none" fill-opacity=".85"/></g></svg></div>
-              <h4 data-c="process.s3t">Delivery</h4>
-              <p data-c="process.s3d">Every format you need — landscape, vertical and cutdowns — delivered ready to post.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<style>
+@property --hiw-a{syntax:"<angle>";inherits:false;initial-value:0deg}
+.hiw{--red:#e11d2e;--red-glow:rgba(225,29,46,.38);--dur:4000ms;position:relative;padding:110px 16px 90px;background:#07070a;color:#fff;overflow:hidden;text-align:center;font-family:inherit}
+.hiw::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 50% 48%,rgba(225,29,46,.16),transparent 70%),radial-gradient(ellipse 80% 40% at 50% 110%,rgba(225,29,46,.12),transparent 70%)}
+.hiw::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,#000,transparent 75%)}
+.hiw>*{position:relative;z-index:1}
+.hiw-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#ff8a93;background:rgba(225,29,46,.1);border:1px solid rgba(225,29,46,.3)}
+.hiw-eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+.hiw-title{font-size:clamp(32px,5.5vw,56px);line-height:1.08;margin:18px 0 12px;font-weight:700;letter-spacing:-.02em}
+.hiw-title em{font-style:normal;background:linear-gradient(90deg,#ff5a66,var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hiw-sub{color:#8d8d96;max-width:500px;margin:0 auto 56px;font-size:16px;line-height:1.6}
+.hiw-stage{position:relative;height:380px;max-width:980px;margin:0 auto;perspective:1400px;transform-style:preserve-3d}
+.hiw-floor{position:absolute;left:50%;bottom:6px;width:420px;height:60px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(225,29,46,.45),transparent 70%);filter:blur(14px);opacity:.8}
+.hiw-card{position:absolute;left:50%;top:50%;width:250px;height:320px;margin:-165px 0 0 -125px;border-radius:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;user-select:none;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02) 40%,rgba(0,0,0,.35));border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 60px -10px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.14);opacity:0;transform:translateX(0) scale(.5);pointer-events:none;transition:transform .9s cubic-bezier(.2,.85,.25,1),opacity .9s,filter .9s}
+.hiw-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;opacity:0;transition:opacity .6s;background:conic-gradient(from var(--hiw-a),transparent 0 55%,rgba(255,90,102,.2) 70%,var(--red) 88%,#fff 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:hiwSpin 4s linear infinite}
+@keyframes hiwSpin{to{--hiw-a:360deg}}
+.hiw-bignum{position:absolute;top:10px;right:18px;font-size:64px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.1);letter-spacing:-.04em}
+.hiw-ico{width:104px;height:104px;filter:drop-shadow(0 12px 22px var(--red-glow));transition:transform .8s cubic-bezier(.2,.85,.25,1)}
+.hiw-ico svg{width:100%;height:100%;overflow:visible}
+.hiw-name{font-size:19px;font-weight:600;color:#cfcfd6;transition:color .5s}
+.hiw-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6d6d76;transition:color .5s}
+.hiw-card[data-pos="0"]{opacity:1;transform:translateX(0) translateZ(60px) scale(1.06);z-index:3;box-shadow:0 40px 80px -10px rgba(0,0,0,.85),0 0 60px -10px var(--red-glow),inset 0 1px 0 rgba(255,255,255,.2)}
+.hiw-card[data-pos="0"]::before{opacity:1}
+.hiw-card[data-pos="0"] .hiw-ico{transform:translateY(-4px) scale(1.06)}
+.hiw-card[data-pos="0"] .hiw-name{color:#fff}
+.hiw-card[data-pos="0"] .hiw-tag{color:#ff6b76}
+.hiw-card[data-pos="-1"]{opacity:.55;transform:translateX(-112%) rotateY(32deg) scale(.82);filter:blur(1.2px) saturate(.7);z-index:2}
+.hiw-card[data-pos="1"]{opacity:.55;transform:translateX(112%) rotateY(-32deg) scale(.82);filter:blur(1.2px) saturate(.7);z-index:2}
+.hiw-detail{max-width:520px;margin:64px auto 0;min-height:92px}
+.hiw-detail h3{margin:0 0 8px;font-size:24px;font-weight:650}
+.hiw-detail p{margin:0;color:#9a9aa3;font-size:16px;line-height:1.6}
+.hiw-detail .swap{animation:hiwIn .6s cubic-bezier(.2,.85,.25,1)}
+@keyframes hiwIn{from{opacity:0;transform:translateY(10px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.hiw-bar{width:160px;height:3px;margin:34px auto 0;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}
+.hiw-bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),#ff6b76);box-shadow:0 0 12px var(--red-glow)}
+.hiw-bar b.run{animation:hiwFill var(--dur) linear forwards}
+@keyframes hiwFill{from{width:0}to{width:100%}}
+@media(max-width:700px){.hiw{padding:80px 16px 70px}.hiw-stage{height:350px}.hiw-card{width:210px;height:290px;margin:-150px 0 0 -105px}.hiw-ico{width:88px;height:88px}.hiw-card[data-pos="-1"]{transform:translateX(-78%) rotateY(32deg) scale(.76)}.hiw-card[data-pos="1"]{transform:translateX(78%) rotateY(-32deg) scale(.76)}.hiw-floor{width:280px}}
+@media(prefers-reduced-motion:reduce){.hiw-card,.hiw-ico{transition:none}.hiw-card::before{animation:none}.hiw-bar b.run{animation:none;width:100%}}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="gi-fill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".28" stop-color="#ffb3b9" stop-opacity=".32"/><stop offset=".6" stop-color="#e11d2e" stop-opacity=".28"/><stop offset=".85" stop-color="#ff9a6b" stop-opacity=".7"/><stop offset="1" stop-color="#fff" stop-opacity=".5"/></linearGradient>
+<linearGradient id="gi-edge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#ffd2b0" stop-opacity=".9"/></linearGradient>
+<linearGradient id="gi-depth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a0710"/><stop offset="1" stop-color="#b3121f"/></linearGradient>
+<symbol id="s-chat" viewBox="0 0 64 64"><path d="M14 8h36a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8H30l-12 11V46h-4a8 8 0 0 1-8-8V16a8 8 0 0 1 8-8z"/></symbol>
+<symbol id="s-cut" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="9"/><rect x="14" y="22" width="8" height="8" rx="2"/><rect x="28" y="22" width="22" height="8" rx="2"/><rect x="14" y="36" width="24" height="8" rx="2"/></symbol>
+<symbol id="s-play" viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="40" rx="11"/><path d="M26 23.5v17a2 2 0 0 0 3 1.7l14-8.5a2 2 0 0 0 0-3.4l-14-8.5a2 2 0 0 0-3 1.7z"/></symbol>
+<symbol id="s-send" viewBox="0 0 64 64"><path d="M58 6 6 26l20 8 8 20z"/></symbol>
+</defs></svg>
+<section class="hiw" id="how-it-works" aria-label="How it works">
+  <span class="hiw-eyebrow"><i></i>Process</span>
+  <h2 class="hiw-title">How it <em>works</em></h2>
+  <p class="hiw-sub">A simple, transparent workflow — from your first message to the final export.</p>
+  <div class="hiw-stage" id="hiwStage">
+    <div class="hiw-floor"></div>
+    <div class="hiw-card"><span class="hiw-bignum">01</span><i class="hiw-ico" data-i="chat"></i><div class="hiw-name">Share Your Brief</div><div class="hiw-tag">Day 0</div></div>
+    <div class="hiw-card"><span class="hiw-bignum">02</span><i class="hiw-ico" data-i="cut"></i><div class="hiw-name">I Start Editing</div><div class="hiw-tag">Day 1–2</div></div>
+    <div class="hiw-card"><span class="hiw-bignum">03</span><i class="hiw-ico" data-i="play"></i><div class="hiw-name">Review &amp; Revise</div><div class="hiw-tag">Day 2–3</div></div>
+    <div class="hiw-card"><span class="hiw-bignum">04</span><i class="hiw-ico" data-i="send"></i><div class="hiw-name">Final Delivery</div><div class="hiw-tag">Day 3–4</div></div>
+  </div>
+  <div class="hiw-detail" aria-live="polite"><div id="hiwDetail"></div></div>
+  <div class="hiw-bar" aria-hidden="true"><b id="hiwBar"></b></div>
+</section>
+<script>
+(function(){
+  var data=[['Share Your Brief','Send me your footage, references, style and deadline. I reply fast with a clear plan and timeline.'],['I Start Editing','Cuts, pacing, color, sound and motion — built carefully around your brief and brand.'],['Review & Revise','Watch the draft, leave notes, and I refine it until every frame feels right.'],['Final Delivery','You receive the final export in every format you need, ready to publish.']];
+  var stage=document.getElementById('hiwStage'),cards=[].slice.call(stage.querySelectorAll('.hiw-card')),n=cards.length,detail=document.getElementById('hiwDetail'),bar=document.getElementById('hiwBar'),cur=0,timer,paused=false,DUR=4000;
+  document.querySelectorAll('.hiw-ico[data-i]').forEach(function(el){var k=el.getAttribute('data-i');el.innerHTML='<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#s-'+k+'" fill="url(#gi-depth)" transform="translate(3 4)"/><use href="#s-'+k+'" fill="url(#gi-fill)" stroke="url(#gi-edge)" stroke-width="1.6" stroke-linejoin="round"/></svg>';});
+  function render(){cards.forEach(function(c,i){var o=((i-cur)%n+n)%n;if(o>n/2)o-=n;c.setAttribute('data-pos',Math.abs(o)>1?'x':o);});detail.innerHTML='<div class="swap"><h3>'+data[cur][0]+'</h3><p>'+data[cur][1]+'</p></div>';bar.classList.remove('run');void bar.offsetWidth;bar.classList.add('run');}
+  function next(){cur=(cur+1)%n;render();}
+  function start(){clearInterval(timer);render();timer=setInterval(function(){if(!paused)next();},DUR);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(en){paused=!en[0].isIntersecting;}).observe(stage);
+  start();
+})();
+</script>
 
   <!-- ======================= TRUSTED BY ======================= -->
   <section class="section trust-section">
@@ -990,8 +1053,9 @@
     if (st.aboutPhoto) { ABOUT_PHOTO = st.aboutPhoto; var f = document.getElementById("aboutPhoto");
       if (f) f.innerHTML = '<img src="' + st.aboutPhoto + '" alt="' + (getPath(c, "brand.full") || "Jahedul Islam Sahin") + '" loading="lazy">'; }
 
-    if (c.services && c.services.items && c.services.items.length) {
-      var g = document.getElementById("servicesGrid"); g.innerHTML = "";
+    var g = document.getElementById("servicesGrid");
+    if (g && c.services && c.services.items && c.services.items.length) {
+      g.innerHTML = "";
       c.services.items.forEach(function (s) {
         var d = document.createElement("div"); d.className = "service reveal";
         var ico = document.createElement("div"); ico.className = "svc-ico"; ico.setAttribute("data-icon", s.icon || "film");
