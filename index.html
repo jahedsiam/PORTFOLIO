@@ -425,6 +425,9 @@
   .social { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #a9b0ff; background: linear-gradient(160deg, rgba(129,140,248,.2), rgba(99,102,241,.05)); border: 1px solid rgba(129,140,248,.28); box-shadow: 0 8px 22px -12px rgba(99,102,241,.6), inset 0 1px 0 rgba(255,255,255,.15); transition: color .2s, border-color .2s, transform .2s, box-shadow .2s; }
   .social svg { width: 52%; height: 52%; display: block; }
   .social:hover { color: #fff; border-color: #818CF8; transform: translateY(-3px); box-shadow: 0 14px 30px -12px rgba(99,102,241,.9), inset 0 1px 0 rgba(255,255,255,.2); }
+  /* Contact background: slowly rotating dotted globe (drawn in code, low opacity) */
+  .contact { overflow: hidden; }
+  .contact-globe { position: absolute; left: 50%; top: 50%; width: min(760px, 125vw); aspect-ratio: 1; transform: translate(-50%, -50%); z-index: 0; pointer-events: none; opacity: .4; -webkit-mask-image: radial-gradient(circle at center, #000 55%, transparent 76%); mask-image: radial-gradient(circle at center, #000 55%, transparent 76%); }
   .contact .glow-b { top: -60px; left: 50%; transform: translateX(-50%); opacity: .4; }
 
   /* ---------- Footer ---------- */
@@ -695,6 +698,7 @@
   <!-- ======================= CONTACT ======================= -->
   <section class="section contact" id="contact">
     <div class="glow glow-b"></div>
+    <canvas class="contact-globe" id="contactGlobe" aria-hidden="true"></canvas>
     <div class="wrap contact-inner">
       <span class="eyebrow" style="justify-content:center" data-c="contact.eyebrow">Let's work together</span>
       <h2 id="contactHeading"><span data-c="contact.headPre">Got footage? Let's make it </span><span class="grad-text" data-c="contact.headAccent">unmissable.</span></h2>
@@ -1355,6 +1359,49 @@
       if (!queued) { queued = true; requestAnimationFrame(frame); }
     }, { passive: true });
   })();
+</script>
+<script>
+/* Dotted rotating globe for the Contact background (original artwork, no external image) */
+(function () {
+  var cv = document.getElementById("contactGlobe"); if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext("2d"), N = 9000, pts = [], size = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function hash(x, y, z) { var h = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return h - Math.floor(h); }
+  function vnoise(x, y, z) {
+    var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = x - xi, yf = y - yi, zf = z - zi;
+    function sm(t) { return t * t * (3 - 2 * t); } var u = sm(xf), v = sm(yf), w = sm(zf), r = 0;
+    for (var a = 0; a < 2; a++) for (var b = 0; b < 2; b++) for (var c = 0; c < 2; c++)
+      r += hash(xi + a, yi + b, zi + c) * (a ? u : 1 - u) * (b ? v : 1 - v) * (c ? w : 1 - w);
+    return r;
+  }
+  function land(x, y, z) { return vnoise(x * 1.9 + 3, y * 1.9, z * 1.9) * .6 + vnoise(x * 4 , y * 4 + 7, z * 4) * .3 + vnoise(x * 8, y * 8, z * 8 + 2) * .1; }
+  var ga = Math.PI * (3 - Math.sqrt(5));
+  for (var i = 0; i < N; i++) {
+    var y = 1 - (i + .5) / N * 2, r = Math.sqrt(1 - y * y), th = ga * i;
+    var x = Math.cos(th) * r, z = Math.sin(th) * r;
+    pts.push({ x: x, y: y, z: z, land: land(x, y, z) > .56 });
+  }
+  function fit() { size = cv.clientWidth; cv.width = cv.height = Math.round(size * dpr); }
+  fit(); window.addEventListener("resize", fit);
+  var ang = 0, tilt = -.35, ct = Math.cos(tilt), st = Math.sin(tilt), visible = true;
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(cv);
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function draw() {
+    if (visible) {
+      var W = cv.width, R = W * .47, cx = W / 2; ctx.clearRect(0, 0, W, W);
+      var ca = Math.cos(ang), sa = Math.sin(ang);
+      for (var i = 0; i < N; i++) {
+        var p = pts[i], x1 = p.x * ca + p.z * sa, z1 = -p.x * sa + p.z * ca, y1 = p.y * ct - z1 * st, z2 = p.y * st + z1 * ct;
+        if (z2 < -.05) continue;
+        var d = .35 + .65 * Math.max(0, z2), rad = (p.land ? 1.25 : .7) * dpr * (.55 + .6 * d) * (W / 1000 + .45);
+        ctx.fillStyle = p.land ? "rgba(199,203,255," + (.35 + .65 * d).toFixed(2) + ")" : "rgba(150,160,255," + (.3 + .4 * d).toFixed(2) + ")";
+        ctx.fillRect(cx + x1 * R - rad, cx - y1 * R - rad, rad * 2, rad * 2);
+      }
+      if (!reduce) ang += .0016;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 </body>
 </html>
