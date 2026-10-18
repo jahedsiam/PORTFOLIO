@@ -325,8 +325,9 @@
   .lb-cap .c { font-family: var(--mono); font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; }
 
   /* ---------- About ---------- */
-  .about-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(28px, 5vw, 64px); align-items: center; position: relative; z-index: 2; }
-  @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-grid { display: grid; grid-template-columns: 1.18fr 0.82fr; gap: clamp(28px, 5vw, 64px); align-items: center; position: relative; z-index: 2; }
+  .about-grid .about-photo { order: 2; }
+  @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } .about-grid .about-photo { order: 0; } }
   .about-lede { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 3.4vw, 32px); line-height: 1.22; letter-spacing: -0.03em; text-wrap: balance; }
   .about-body { color: var(--muted); margin-top: 22px; font-size: 15.5px; }
   .about-body p + p { margin-top: 15px; }
