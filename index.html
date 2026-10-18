@@ -313,8 +313,11 @@
   .lb-stage { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; background: #000; border: 1px solid var(--line-2); box-shadow: 0 30px 90px -20px var(--glow-violet); }
   .lb-inner.portrait .lb-stage { aspect-ratio: 9/16; }
   .lb-stage iframe, .lb-stage video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 1; }
-  .lb-fallback { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: grid; place-items: center; text-align: center; padding: 24px; color: var(--muted); font-size: 14px; }
+  .lb-fallback { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: center; text-align: center; padding: 24px; color: var(--muted); font-size: 14px; }
   .lb-fallback a { color: var(--cyan); pointer-events: auto; }
+  .lb-spin { width: 38px; height: 38px; border-radius: 50%; border: 3px solid rgba(129,140,248,.25); border-top-color: #818CF8; animation: lb-spin .8s linear infinite; }
+  @keyframes lb-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .lb-spin { animation-duration: 2s; } }
   .lb-close { position: absolute; top: -48px; right: 0; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid var(--line-2); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; transition: background .2s; }
   .lb-close:hover { background: rgba(255,255,255,0.18); }
   .lb-cap { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -1040,12 +1043,21 @@
      deploy time and writes videos.json. If there is no manifest (or no uploads), the sample list above is used. */
   function applyShowreelPoster() {
     var poster = document.querySelector(".reel-poster");
-    if (poster && typeof SHOWREEL === "object" && isMp4(SHOWREEL.url) && !SHOWREEL.thumbImg && !poster.querySelector(".reel-vid")) {
+    if (!(poster && typeof SHOWREEL === "object" && isMp4(SHOWREEL.url) && !SHOWREEL.thumbImg && !poster.querySelector(".reel-vid"))) return;
+    // Load the preview frame OFF the critical path so the hero paints instantly
+    // (the gradient poster + play button show at once; the frame fades in when ready).
+    var start = function () {
+      if (poster.querySelector(".reel-vid")) return;
       var vid = document.createElement("video");
-      vid.className = "reel-vid"; vid.src = SHOWREEL.url + "#t=0.6";
-      vid.muted = true; vid.playsInline = true; vid.preload = "metadata"; vid.setAttribute("aria-hidden", "true");
+      vid.className = "reel-vid"; vid.muted = true; vid.playsInline = true;
+      vid.preload = "metadata"; vid.setAttribute("aria-hidden", "true");
+      vid.style.opacity = "0"; vid.style.transition = "opacity .6s ease";
+      vid.addEventListener("loadeddata", function () { vid.style.opacity = "1"; });
+      vid.src = SHOWREEL.url + "#t=0.6";
       poster.appendChild(vid);
-    }
+    };
+    if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 2500 });
+    else setTimeout(start, 1200);
   }
   /* ---- Apply all editable site content (text + lists + settings) from the admin panel ---- */
   function getPath(o, p) { return p.split(".").reduce(function (a, k) { return (a && a[k] != null) ? a[k] : null; }, o); }
@@ -1159,21 +1171,26 @@
     lbTitle.textContent = v.title;
     lbCat.textContent = v.category;
     lbStage.innerHTML = "";
+    var fb = document.createElement("div");
+    fb.className = "lb-fallback";
+    fb.innerHTML = '<span class="lb-spin" aria-hidden="true"></span><span>Loading…</span>';
+    var rm = function () { if (fb && fb.parentNode) { fb.parentNode.removeChild(fb); fb = null; } };
+    lbStage.appendChild(fb);
     if (parsed && parsed.kind === "iframe") {
       var f = document.createElement("iframe");
       f.src = parsed.src;
       f.allow = "autoplay; fullscreen; picture-in-picture";
       f.setAttribute("allowfullscreen", "");
+      f.addEventListener("load", rm);
       lbStage.appendChild(f);
     } else if (parsed && parsed.kind === "video") {
       var vid = document.createElement("video");
-      vid.src = parsed.src; vid.controls = true; vid.autoplay = true; vid.playsInline = true;
+      vid.src = parsed.src; vid.controls = true; vid.autoplay = true; vid.playsInline = true; vid.preload = "auto";
+      vid.addEventListener("loadeddata", rm);
+      vid.addEventListener("playing", rm);
+      vid.addEventListener("canplay", rm);
       lbStage.appendChild(vid);
-    }
-    var fb = document.createElement("div");
-    fb.className = "lb-fallback";
-    fb.textContent = "Loading player…";
-    lbStage.insertBefore(fb, lbStage.firstChild);
+    } else { rm(); }
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
   }
