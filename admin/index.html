@@ -186,7 +186,7 @@ main{max-width:1040px;margin:0 auto;padding:22px 16px 100px}
 <script type="module">
 // Blob client is loaded lazily (only when uploading) so a CDN/module hiccup never blocks login or editing.
 let _upload = null;
-async function getUpload() { if (!_upload) { const m = await import("./blob-client.js"); _upload = m.upload; } return _upload; }
+async function getUpload() { if (!_upload) { const m = await import("/admin/blob-client.js"); _upload = m.upload; } return _upload; }
 
 const $ = (s) => document.querySelector(s);
 const uid = () => Math.random().toString(36).slice(2, 10);
