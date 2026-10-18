@@ -325,6 +325,8 @@
   .lb-cap .c { font-family: var(--mono); font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; }
 
   /* ---------- About ---------- */
+  .about-copy .eyebrow { margin-bottom: 20px; }
+  .about-copy .about-lede { margin-top: 0; }
   .about-grid { display: grid; grid-template-columns: 1.18fr 0.82fr; gap: clamp(28px, 5vw, 64px); align-items: center; position: relative; z-index: 2; }
   .about-grid .about-photo { order: 2; }
   @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } .about-grid .about-photo { order: 0; } }
@@ -614,12 +616,6 @@
   <section class="section about" id="about">
     <div class="glow glow-b"></div>
     <div class="wrap">
-      <div class="sec-head">
-        <div class="left reveal">
-          <span class="eyebrow" data-c="about.eyebrow">About me</span>
-          <h2 data-c="about.heading">Two years. Hundreds of cuts.</h2>
-        </div>
-      </div>
       <div class="about-grid">
         <div class="about-photo reveal">
           <div class="photo-wrap">
@@ -631,7 +627,8 @@
             </div>
           </div>
         </div>
-        <div class="reveal">
+        <div class="about-copy reveal">
+          <span class="eyebrow" data-c="about.eyebrow">About me</span>
           <p class="about-lede" id="aboutLede"><span data-c="about.ledePre">I'm </span><span class="grad-text" data-c="about.ledeName">Jahedul Islam Sahin</span><span data-c="about.ledePost">, a video editor who cares about the moments most people skip — the hook, the pacing, the cut that lands.</span></p>
           <div class="about-body" id="aboutBody">
             <p>Over the last two years I've edited everything from SaaS product demos to fast-paced social reels. I obsess over rhythm and retention: keeping a viewer locked in from the first frame to the last.</p>
