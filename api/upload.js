@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         if (!isAuthed(req)) throw new Error("unauthorized");
         return {
           allowedContentTypes: ["video/mp4", "video/webm", "video/quicktime", "image/jpeg", "image/png", "image/webp"],
-          maximumSizeInBytes: 1024 * 1024 * 1024,
+          maximumSizeInBytes: 5 * 1024 * 1024 * 1024,
           addRandomSuffix: true,
         };
       },
